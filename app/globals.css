@@ -42,7 +42,7 @@ body {
 }
 
 .cta-nav {
-  @apply bg-white-secondary text-black-primary font-semibold font-open-sans px-5 py-2 rounded-full hover:bg-white-primary cursor-pointer;
+  @apply bg-white-secondary text-black-primary font-semibold font-open-sans px-5 py-2 rounded-full hover:bg-white-primary cursor-pointer whitespace-nowrap;
 }
 
 .menu-mobile {
