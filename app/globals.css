@@ -34,7 +34,7 @@ body {
 }
 
 .link-flex {
-  @apply flex items-center gap-1 font-open-sans;
+  @apply flex items-center gap-1;
 }
 
 .nav-link {
@@ -42,7 +42,7 @@ body {
 }
 
 .cta-nav {
-  @apply bg-white-secondary text-black-primary font-semibold font-open-sans px-5 py-2 rounded-full hover:bg-white-primary cursor-pointer whitespace-nowrap;
+  @apply bg-white-secondary text-black-primary font-semibold px-5 py-2 rounded-full hover:bg-white-primary cursor-pointer whitespace-nowrap;
 }
 
 .menu-mobile {
@@ -67,4 +67,31 @@ body {
 
 .menu-desktop.showing .nav-link{
   @apply bg-black-secondary rounded-none text-right hover:bg-white-primary
+}
+
+.hero{
+  @apply w-full flex flex-col items-center justify-center max-lg:px-8;
+  min-height: calc(100vh - 80px);
+}
+
+.hero-title{
+  @apply text-6xl font-extrabold font-chakra mt-5 text-center leading-[60px] max-md:text-[2.6rem] max-md:leading-none max-sm:text-3xl
+}
+.hero-title span{
+  @apply bg-gradient-to-r from-blue to-purple bg-clip-text text-transparent
+}
+
+.sub-hero {
+  @apply mt-5 w-[50%] text-center text-lg max-lg:w-[80%] max-sm:w-[100%] max-sm:text-base
+}
+
+.btn{
+  @apply uppercase px-4 py-1 bg-white-primary text-black-primary rounded-md cursor-pointer hover:bg-white-secondary border border-transparent text-center
+}
+.btn-outline{
+  @apply uppercase px-4 py-1 bg-transparent text-white-primary hover:text-black-primary rounded-md cursor-pointer hover:bg-white-secondary border border-white-primary text-center
+}
+
+.btn-lg{
+  @apply !px-8 !py-3
 }
