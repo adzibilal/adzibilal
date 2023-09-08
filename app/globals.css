@@ -42,7 +42,7 @@ body {
 }
 
 .cta-nav {
-  @apply bg-white-secondary text-black-primary font-semibold px-5 py-2 rounded-full hover:bg-white-primary cursor-pointer whitespace-nowrap;
+  @apply bg-white-secondary text-black-primary font-semibold px-5 py-2 rounded-full hover:bg-gradient-to-r hover:from-blue hover:to-purple hover:text-white-primary transition-all cursor-pointer whitespace-nowrap;
 }
 
 .menu-mobile {
@@ -85,13 +85,29 @@ body {
   @apply mt-5 w-[50%] text-center text-lg max-lg:w-[80%] max-sm:w-[100%] max-sm:text-base
 }
 
-.btn{
-  @apply uppercase px-4 py-1 bg-white-primary text-black-primary rounded-md cursor-pointer hover:bg-white-secondary border border-transparent text-center
+.button{
+  @apply uppercase px-4 py-1 bg-white-primary text-black-primary rounded-md cursor-pointer hover:bg-gradient-to-r hover:from-blue hover:to-purple hover:text-white-primary transition-all border border-transparent text-center
 }
-.btn-outline{
-  @apply uppercase px-4 py-1 bg-transparent text-white-primary hover:text-black-primary rounded-md cursor-pointer hover:bg-white-secondary border border-white-primary text-center
+.button-outline{
+  @apply uppercase px-4 py-1 bg-transparent text-white-primary rounded-md cursor-pointer hover:bg-gradient-to-r hover:border-transparent hover:from-blue hover:to-purple hover:text-white-primary transition-all border border-white-primary text-center
 }
 
-.btn-lg{
+.button-lg{
   @apply !px-8 !py-3
+}
+
+.brand-item{
+  @apply h-[70px]
+}
+
+.brands-title{
+  @apply font-chakra text-2xl font-semibold
+}
+
+.leading-brands{
+  @apply max-container px-8 grid grid-cols-[1fr_1fr] items-center pb-10 max-lg:grid-cols-1 max-lg:gap-7 max-xl:px-8 max-xl:grid-cols-[1fr_2fr]
+}
+
+.brand-item{
+  @apply max-lg:h-[90px] max-sm:h-[60px]
 }

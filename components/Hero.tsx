@@ -16,8 +16,8 @@ export default function Hero () {
             <p className="sub-hero">"As a dedicated Frontend Developer, I'm passionate about crafting innovative and user-centric web experiences for global audiences."</p>
 
             <div className="flex gap-5 mt-5 max-sm:flex-col">
-                <div className="btn btn-lg !rounded-full">GET IN TOUCH</div>
-                <div className="btn-outline btn-lg !rounded-full">VIEW ALL WORKS</div>
+                <div className="button button-lg !rounded-full">GET IN TOUCH</div>
+                <div className="button-outline button-lg !rounded-full">VIEW ALL WORKS</div>
             </div>
         </section>
     )
