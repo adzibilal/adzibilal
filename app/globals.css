@@ -97,7 +97,7 @@ body {
 }
 
 .brand-item{
-  @apply h-[70px]
+  @apply h-auto
 }
 
 .brands-title{
@@ -109,5 +109,9 @@ body {
 }
 
 .brand-item{
-  @apply max-lg:h-[90px] max-sm:h-[60px]
+  @apply max-lg:w-[200px] max-sm:w-[42%]
+}
+
+.brand-item img{
+  @apply max-sm:w-[100%]
 }

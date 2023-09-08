@@ -15,7 +15,7 @@ export default function Navbar() {
     return (
         <nav className={`navbar ${isMenuOpen ? 'menu-open' : ''}`}>
             <Image
-                className='relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert'
+                className='relative dark:invert'
                 src='/images/logo-black.png'
                 alt='Adzi Logo'
                 width={100}
