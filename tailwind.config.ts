@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     colors: {
+      'black-primary': '#161513',
+      'black-secondary': '#1C1C22',
+      'white-primary': '#F0F2F5',
+      'white-secondary': '#ffffff',
       'blue': '#1fb6ff',
       'purple': '#7e5bef',
       'pink': '#ff49db',
@@ -17,6 +21,7 @@ const config: Config = {
       'gray-dark': '#273444',
       'gray': '#8492a6',
       'gray-light': '#d3dce6',
+      'transparent': 'transparent',
     },
     fontFamily: {
       'chakra': ['Chakra Petch', 'sans-serif'],
