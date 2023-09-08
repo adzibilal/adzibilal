@@ -71,7 +71,7 @@ body {
 
 .hero{
   @apply w-full flex flex-col items-center justify-center max-lg:px-8;
-  min-height: calc(100vh - 80px - 90px);
+  min-height: calc(100vh - 80px - 35px);
 }
 
 .hero-title{
