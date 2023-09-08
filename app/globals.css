@@ -70,7 +70,7 @@ body {
 }
 
 .hero{
-  @apply w-full flex flex-col items-center justify-center max-lg:px-8;
+  @apply w-full flex flex-col items-center justify-center max-lg:px-8 max-sm:px-3;
   min-height: calc(100vh - 80px - 35px);
 }
 
@@ -105,7 +105,7 @@ body {
 }
 
 .leading-brands{
-  @apply max-container px-8 grid grid-cols-[1fr_1fr] items-center pb-10 max-lg:grid-cols-1 max-lg:gap-7 max-xl:px-8 max-xl:grid-cols-[1fr_2fr]
+  @apply max-container px-8 grid grid-cols-[1fr_1fr] items-center pb-10 max-lg:grid-cols-1 max-lg:gap-7 max-xl:px-8 max-xl:grid-cols-[1fr_2fr] max-sm:px-3
 }
 
 .brand-item{
