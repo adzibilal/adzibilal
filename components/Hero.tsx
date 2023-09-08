@@ -13,7 +13,7 @@ export default function Hero () {
                 />
 
             <h1 className="hero-title"><span>Hello, I'm Adzi Bilal M H,</span> <br /> Frontend Developer based in Indonesia</h1>
-            <p className="sub-hero">"As a dedicated Frontend Developer, I'm passionate about crafting innovative and user-centric web experiences for global audiences."</p>
+            <p className="sub-hero">As a dedicated Frontend Developer, I'm passionate about crafting innovative and user-centric web experiences for global audiences.</p>
 
             <div className="flex gap-5 mt-5 max-sm:flex-col">
                 <div className="button button-lg !rounded-full">GET IN TOUCH</div>
