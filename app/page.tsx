@@ -1,4 +1,5 @@
 import Divider from '@/components/Divider'
+import Experience from '@/components/Experience'
 import Hero from '@/components/Hero'
 import LandingProjects from '@/components/LandingProjects'
 import LeadingBrands from '@/components/LeadingBrands'
@@ -11,7 +12,8 @@ export default function Home() {
             <LeadingBrands/>
             <LandingProjects/>
             <Divider/>
-
+            <br /><br /><br />
+            <Experience/>
             <br /><br /><br />
         </main>
     )

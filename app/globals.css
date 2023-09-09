@@ -58,106 +58,126 @@ body {
   height: calc(100vh - 80px);
 }
 
-.menu-desktop.showing .link-flex{
-  @apply flex-col w-full 
+.menu-desktop.showing .link-flex {
+  @apply flex-col w-full;
 }
-.menu-desktop.showing .link-flex a{
-  @apply w-full 
-}
-
-.menu-desktop.showing .nav-link{
-  @apply bg-black-secondary rounded-none text-right hover:bg-white-primary
+.menu-desktop.showing .link-flex a {
+  @apply w-full;
 }
 
-.hero{
+.menu-desktop.showing .nav-link {
+  @apply bg-black-secondary rounded-none text-right hover:bg-white-primary;
+}
+
+.hero {
   @apply w-full flex flex-col items-center justify-center max-lg:px-8 max-sm:px-3;
   min-height: calc(100vh - 80px - 35px);
 }
 
-.hero-title{
-  @apply text-6xl font-extrabold font-chakra mt-5 text-center leading-[60px] max-md:text-[2.6rem] max-md:leading-none max-sm:text-3xl
+.hero-title {
+  @apply text-6xl font-extrabold font-chakra mt-5 text-center leading-[60px] max-md:text-[2.6rem] max-md:leading-none max-sm:text-3xl;
 }
-.hero-title span{
-  @apply bg-gradient-to-r from-blue to-purple bg-clip-text text-transparent
+.hero-title span {
+  @apply bg-gradient-to-r from-blue to-purple bg-clip-text text-transparent;
 }
 
 .sub-hero {
-  @apply mt-5 w-[50%] text-center text-lg max-lg:w-[80%] max-sm:w-[100%] max-sm:text-base
+  @apply mt-5 w-[50%] text-center text-lg max-lg:w-[80%] max-sm:w-[100%] max-sm:text-base;
 }
 
-.button{
-  @apply uppercase px-4 py-1 bg-white-primary text-black-primary rounded-md cursor-pointer hover:bg-gradient-to-r hover:from-blue hover:to-purple hover:text-white-primary transition-all border border-transparent text-center
+.button {
+  @apply uppercase px-4 py-1 bg-white-primary text-black-primary rounded-md cursor-pointer hover:bg-gradient-to-r hover:from-blue hover:to-purple hover:text-white-primary transition-all border border-transparent text-center;
 }
-.button-outline{
-  @apply uppercase px-4 py-1 bg-transparent text-white-primary rounded-md cursor-pointer hover:bg-gradient-to-r hover:border-transparent hover:from-blue hover:to-purple hover:text-white-primary transition-all border border-white-primary text-center
-}
-
-.button-lg{
-  @apply !px-8 !py-3
+.button-outline {
+  @apply uppercase px-4 py-1 bg-transparent text-white-primary rounded-md cursor-pointer hover:bg-gradient-to-r hover:border-transparent hover:from-blue hover:to-purple hover:text-white-primary transition-all border border-white-primary text-center;
 }
 
-.brand-item{
-  @apply h-auto
+.button-lg {
+  @apply !px-8 !py-3;
 }
 
-.brands-title{
-  @apply font-chakra text-2xl font-semibold
+.brand-item {
+  @apply h-auto;
 }
 
-.leading-brands{
-  @apply max-container px-8 grid grid-cols-[1fr_1fr] items-center pb-10 max-lg:grid-cols-1 max-lg:gap-7 max-xl:px-8 max-xl:grid-cols-[1fr_2fr] max-sm:px-3
+.brands-title {
+  @apply font-chakra text-2xl font-semibold;
 }
 
-.brand-item{
-  @apply max-lg:w-[200px] max-sm:w-[42%]
+.leading-brands {
+  @apply max-container px-8 grid grid-cols-[1fr_1fr] items-center pb-10 max-lg:grid-cols-1 max-lg:gap-7 max-xl:px-8 max-xl:grid-cols-[1fr_2fr] max-sm:px-3;
 }
 
-.brand-item img{
-  @apply max-sm:w-[100%]
+.brand-item {
+  @apply max-lg:w-[200px] max-sm:w-[42%];
 }
 
-.title-section{
-  @apply font-chakra text-5xl font-extrabold
+.brand-item img {
+  @apply max-sm:w-[100%];
 }
 
-.text-gradient{
-  @apply bg-gradient-to-r from-blue to-purple bg-clip-text text-transparent
+.title-section {
+  @apply font-chakra text-5xl font-extrabold;
 }
 
+.text-gradient {
+  @apply bg-gradient-to-r from-blue to-purple bg-clip-text text-transparent;
+}
 
-.img-project{
+.img-project {
   aspect-ratio: 4/3;
   object-fit: cover;
 }
 
-.item-project{
-  @apply bg-black-secondary shadow-md rounded-lg overflow-hidden
+.item-project {
+  @apply bg-black-secondary shadow-md rounded-lg overflow-hidden;
 }
 
-.item-project .title{
-  @apply font-chakra text-2xl font-semibold
+.item-project .title {
+  @apply font-chakra text-2xl font-semibold;
 }
 
-.item-project .sub{
-  @apply text-base-content text-sm mb-5
+.item-project .sub {
+  @apply text-base-content text-sm mb-5;
 }
 
 .item-project .tech {
-  @apply flex gap-2 items-center mb-3
+  @apply flex gap-2 items-center mb-3;
 }
 
-.item-project .item-tech{
-  @apply text-xs text-white-secondary bg-white-primary/40 px-2 py-1 rounded-full
+.item-project .item-tech {
+  @apply text-xs text-white-secondary bg-white-primary/40 px-2 py-1 rounded-full;
 }
 
-.button-gradient{
-  @apply uppercase w-max rounded-full px-4 py-1 bg-white-primary text-black-primary cursor-pointer hover:bg-gradient-to-r hover:from-blue hover:to-purple hover:text-white-primary transition-all border border-transparent text-center
+.button-gradient {
+  @apply uppercase w-max rounded-full px-4 py-1 bg-white-primary text-black-primary cursor-pointer hover:bg-gradient-to-r hover:from-blue hover:to-purple hover:text-white-primary transition-all border border-transparent text-center;
 }
 
-.item-project .desc{
-  @apply p-5
+.item-project .desc {
+  @apply p-5;
 }
 
-.text-divider{
-  @apply text-black-primary text-3xl font-chakra font-extrabold max-sm:text-xl
+.text-divider {
+  @apply text-black-primary text-3xl font-chakra font-extrabold max-sm:text-xl;
+}
+
+.img-exp {
+  @apply w-[50px] rounded-full h-[50px] cursor-pointer transition-all;
+  filter: saturate(0)
+}
+
+.item-exp:hover .img-exp {
+  filter: saturate(1)
+}
+
+.item-exp{
+  @apply flex justify-between gap-2 items-center pb-5 border-b border-base-content/50 mb-5
+}
+
+.item-exp .title {
+  @apply font-chakra font-extrabold text-2xl;
+}
+
+.item-exp .prod{
+  @apply text-sm text-base-content
 }
