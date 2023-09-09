@@ -157,3 +157,7 @@ body {
 .item-project .desc{
   @apply p-5
 }
+
+.text-divider{
+  @apply text-black-primary text-3xl font-chakra font-extrabold max-sm:text-xl
+}

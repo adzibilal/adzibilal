@@ -1,3 +1,4 @@
+import Divider from '@/components/Divider'
 import Hero from '@/components/Hero'
 import LandingProjects from '@/components/LandingProjects'
 import LeadingBrands from '@/components/LeadingBrands'
@@ -9,6 +10,9 @@ export default function Home() {
             <Hero/>
             <LeadingBrands/>
             <LandingProjects/>
+            <Divider/>
+
+            <br /><br /><br />
         </main>
     )
 }
