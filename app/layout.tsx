@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
+import Footer from '@/components/Footer';
 config.autoAddCss = false;
 
 const inter = Inter({ subsets: ['latin'] })
@@ -23,6 +24,7 @@ export default function RootLayout({
             <body className={inter.className}>
               <Navbar/>
               {children}
+              <Footer/>
             </body>
         </html>
     )

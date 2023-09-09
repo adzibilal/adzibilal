@@ -181,3 +181,15 @@ body {
 .item-exp .prod{
   @apply text-sm text-base-content
 }
+
+.img-com-landing{
+  @apply w-[200px] m-auto cursor-pointer transition-all;
+  filter: opacity(0.5);
+}
+.img-com-landing:hover{
+  filter: none;
+}
+
+.item-social{
+  @apply w-[31px] h-[31px] rounded-full border border-white-secondary flex items-center justify-center cursor-pointer hover:bg-gradient-to-r hover:from-blue hover:to-purple
+}
