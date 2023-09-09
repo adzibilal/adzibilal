@@ -115,3 +115,45 @@ body {
 .brand-item img{
   @apply max-sm:w-[100%]
 }
+
+.title-section{
+  @apply font-chakra text-5xl font-extrabold
+}
+
+.text-gradient{
+  @apply bg-gradient-to-r from-blue to-purple bg-clip-text text-transparent
+}
+
+
+.img-project{
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
+
+.item-project{
+  @apply bg-black-secondary shadow-md rounded-lg overflow-hidden
+}
+
+.item-project .title{
+  @apply font-chakra text-2xl font-semibold
+}
+
+.item-project .sub{
+  @apply text-base-content text-sm mb-5
+}
+
+.item-project .tech {
+  @apply flex gap-2 items-center mb-3
+}
+
+.item-project .item-tech{
+  @apply text-xs text-white-secondary bg-white-primary/40 px-2 py-1 rounded-full
+}
+
+.button-gradient{
+  @apply uppercase w-max rounded-full px-4 py-1 bg-white-primary text-black-primary cursor-pointer hover:bg-gradient-to-r hover:from-blue hover:to-purple hover:text-white-primary transition-all border border-transparent text-center
+}
+
+.item-project .desc{
+  @apply p-5
+}

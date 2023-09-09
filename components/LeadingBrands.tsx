@@ -12,7 +12,7 @@ export default function LeadingBrands() {
                             src={brand}
                             alt={`Brand ${brand}`}
                             width={135}
-                            height={100}
+                            height={68}
                         />
                     </div>
                 ))}
