@@ -12,15 +12,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function Footer() {
     return (
-        <section className='max-container pt-[30px] pb-[50px] border-t border-base-content/50'>
-            <div className='flex justify-between items-center'>
+        <section className='max-container max-lg:!mx-5 pt-[30px] pb-[50px] border-t border-base-content/50'>
+            <div className='flex justify-between items-center max-md:flex-col'>
                 <img
                     className='relative dark:invert h-[20px]'
                     src='/images/logo-black.png'
                     alt=''
                 />
 
-                <div className='link-flex'>
+                <div className='link-flex max-sm:hidden'>
                     {navbarLinks.map(route => (
                         <Link key={route.path} href={route.path}>
                             <div className='nav-link'>{route.label}</div>
@@ -29,7 +29,7 @@ export default function Footer() {
                 </div>
             </div>
 
-            <div className='flex justify-between items-center mt-[40px]'>
+            <div className='flex justify-between items-center mt-[40px] max-md:flex-col max-md: gap-8'>
                 <p>&copy; Adzi Bilal M H 2023</p>
 
                 <div className='flex gap-3'>
