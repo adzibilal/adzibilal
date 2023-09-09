@@ -9,16 +9,24 @@ import Image from 'next/image'
 export default function Home() {
     return (
         <main className='bg-black-primary'>
-            <Hero/>
-            <LeadingBrands/>
-            <LandingProjects/>
-            <Divider/>
-            <br /><br /><br />
-            <Experience/>
-            <br /><br /><br />
-            <br /><br /><br />
-            <LandingCompanies/>
-            <br /><br /><br />
+            <Hero />
+            <LeadingBrands />
+            <LandingProjects />
+            <Divider />
+            <br />
+            <br />
+            <br />
+            <Experience />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <LandingCompanies />
+            <br />
+            <br />
+            <br />
         </main>
     )
 }
