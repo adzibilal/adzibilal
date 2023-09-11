@@ -33,7 +33,7 @@ const ProjectDetail: NextPage<Props> = ({ project }) => {
                     <div className='grid grid-cols-[1fr_2fr] items-start gap-10 max-md:grid-cols-1'>
                         <div className='card bg-base-100 shadow-xl max-md:w-full'>
                             <figure>
-                                <img src={project.image} alt={project.judul} />
+                                <img src={project.image[0]} alt={project.judul} />
                             </figure>
                             <div className='card-body'>
                                 <h2 className='card-title'>{project.judul}</h2>

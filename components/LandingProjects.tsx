@@ -41,7 +41,7 @@ export default function LandingProjects() {
                 {projects.map(project => (
                     <div className='item-project' key={project._id}>
                         <img
-                            src={project.image}
+                            src={project.image[0]}
                             alt=''
                             className='img-project'
                         />

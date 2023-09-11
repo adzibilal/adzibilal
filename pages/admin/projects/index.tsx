@@ -78,7 +78,7 @@ const Projects: NextPage<Props> = ({}) => {
                                         <td>{project.deskripsi}</td>
                                         <td>
                                             <img
-                                                src={project.image}
+                                                src={project.image[0]}
                                                 alt={project.judul}
                                                 style={{ maxWidth: '100px' }}
                                             />
