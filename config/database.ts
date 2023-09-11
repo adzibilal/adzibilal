@@ -10,7 +10,7 @@ async function connectToDatabase() {
     }
 
     try {
-        const conn = await mongoose.connect(process.env.MONGODB_URI as string, {
+        const conn = await mongoose.connect(process.env.NEXT_PUBLIC_MONGODB_URI as string, {
             //@ts-ignore
             useNewUrlParser: true,
             useUnifiedTopology: true

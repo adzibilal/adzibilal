@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router' // Import useRouter
 
 import { IProject } from '@/models/Project'
+import Link from 'next/link'
 
 interface Props {}
 
@@ -37,7 +38,10 @@ const Projects: NextPage<Props> = ({}) => {
     return (
         <AdminLayout>
             <div className='max-container'>
-                <h1>Projects</h1>
+            <div className='flex items-center justify-between mb-8'>
+                    <h1 className='text-4xl'>Projects</h1>
+                    <Link href='/admin/projects/add' className="btn btn-info">Add Project</Link>
+                </div>
                 {loading ? (
                     <span className='loading loading-spinner loading-lg'></span>
                 ) : (
