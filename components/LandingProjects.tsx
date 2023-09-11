@@ -3,6 +3,7 @@ import { IProject } from '@/models/Project'
 import { useState, useEffect } from 'react'
 export default function LandingProjects() {
     const [projects, setProjects] = useState<IProject[]>([])
+    const [loading, setLoading] = useState(true) // Menambahkan state untuk loading
 
     useEffect(() => {
         // Fungsi untuk mengambil data proyek dari API
@@ -17,6 +18,9 @@ export default function LandingProjects() {
                 }
             } catch (error) {
                 console.error('Error:', error)
+            } finally {
+                // Set loading menjadi false setelah data selesai diambil, baik berhasil maupun gagal
+                setLoading(false)
             }
         }
 
@@ -36,31 +40,37 @@ export default function LandingProjects() {
                     design projects
                 </p>
             </div>
-
-            <div className='grid grid-cols-3 gap-5 mt-8 max-md:grid-cols-2 max-sm:grid-cols-1'>
-                {projects.map(project => (
-                    <div className='item-project' key={project._id}>
-                        <img
-                            src={project.image[0]}
-                            alt=''
-                            className='img-project'
-                        />
-                        <div className='desc'>
-                            <div className='tech'>
-                                {project.teknologi.map((tech, index) => (
-                                    <div className='item-tech' key={index}>
-                                        {tech}
-                                    </div>
-                                ))}
+            {loading ? ( // Tampilkan "Loading" jika loading adalah true
+               <div className="w-full py-10 flex items-center justify-center">
+                <span className="loading loading-ring loading-lg"></span>
+               </div>
+            ) : (
+                <div className='grid grid-cols-3 gap-5 mt-8 max-md:grid-cols-2 max-sm:grid-cols-1'>
+                    {projects.map(project => (
+                        <div className='item-project' key={project._id}>
+                            <img
+                                src={project.image[0]}
+                                alt=''
+                                className='img-project'
+                            />
+                            <div className='desc'>
+                                <div className='tech'>
+                                    {project.teknologi.map((tech, index) => (
+                                        <div className='item-tech' key={index}>
+                                            {tech}
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className='title'>{project.judul}</div>
+                                <div className='sub'>{project.deskripsi}</div>
+                                <div className='button-gradient'>
+                                    Learn More
+                                </div>
                             </div>
-                            <div className='title'>{project.judul}</div>
-                            <div className='sub'>{project.deskripsi}</div>
-                            <div className='button-gradient'>Learn More</div>
                         </div>
-                    </div>
-                ))}
-            </div>
-
+                    ))}
+                </div>
+            )}
             <div className='button-gradient m-auto mt-7'>Show More</div>
         </section>
     )
