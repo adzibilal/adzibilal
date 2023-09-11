@@ -6,12 +6,46 @@ import { IProject } from '@/models/Project'
 import connectToDB from '@/utils/database'
 import ProjectModel from '@/models/Project'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 interface Props {
     project: IProject | null
 }
 
 const ProjectDetail: NextPage<Props> = ({ project }) => {
+    const router = useRouter()
+    const handleEdit = () => {
+        // Navigasi ke halaman edit proyek dengan menggunakan query parameter projectId
+        router.push(`/admin/projects/edit/${project?._id}`)
+    }
+
+    const handleDelete = async () => {
+        try {
+            const response = await fetch('/api/projects', {
+                method: 'DELETE',
+                body: JSON.stringify({ id: project?._id }), // Mengirim id proyek dalam body
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            if (response.ok) {
+                // Redirect ke halaman proyek setelah penghapusan
+                router.push('/admin/projects')
+            } else {
+                // Tampilkan pesan kesalahan jika penghapusan gagal
+                console.error('Gagal menghapus proyek')
+            }
+        } catch (error) {
+            console.error('Terjadi kesalahan:', error)
+        }
+    }
+
+    const openModalDelete = () => {
+        // @ts-ignore
+        document.getElementById('my_modal_2')?.showModal()
+    }
+
     return (
         <AdminLayout>
             <div className='max-container max-lg:!mx-5'>
@@ -33,7 +67,10 @@ const ProjectDetail: NextPage<Props> = ({ project }) => {
                     <div className='grid grid-cols-[1fr_2fr] items-start gap-10 max-md:grid-cols-1'>
                         <div className='card bg-base-100 shadow-xl max-md:w-full'>
                             <figure>
-                                <img src={project.image[0]} alt={project.judul} />
+                                <img
+                                    src={project.image[0]}
+                                    alt={project.judul}
+                                />
                             </figure>
                             <div className='card-body'>
                                 <h2 className='card-title'>{project.judul}</h2>
@@ -123,12 +160,46 @@ const ProjectDetail: NextPage<Props> = ({ project }) => {
                             </div>
 
                             <div className='flex gap-3 mt-5'>
-                                <button className='btn btn-success'>
-                                    Simpan
+                                <button
+                                    className='btn btn-success'
+                                    onClick={handleEdit}>
+                                    Edit
                                 </button>
-                                <button className='btn btn-error'>
+                                <button
+                                    className='btn btn-error'
+                                    onClick={openModalDelete}>
                                     Hapus Project
                                 </button>
+                                <dialog id='my_modal_2' className='modal'>
+                                    <div className='modal-box'>
+                                        <h3 className='font-bold text-lg'>
+                                            Anda Yakin Ingin Menghapus Project?
+                                        </h3>
+                                        <p className='py-4 text-base-content'>
+                                            Press ESC key or click outside to
+                                            close
+                                        </p>
+                                        <div className='modal-action'>
+                                            <form method='dialog '>
+                                                <div className='flex gap-2'>
+                                                    <button className='btn'>
+                                                        Batal
+                                                    </button>
+                                                    <div
+                                                        className='btn btn-error'
+                                                        onClick={handleDelete}>
+                                                        Hapus
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <form
+                                        method='dialog'
+                                        className='modal-backdrop'>
+                                        <button>close</button>
+                                    </form>
+                                </dialog>
                             </div>
                         </div>
                     </div>
