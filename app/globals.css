@@ -194,3 +194,10 @@ body {
 .item-social{
   @apply w-[31px] h-[31px] rounded-full border border-white-secondary flex items-center justify-center cursor-pointer hover:bg-gradient-to-r hover:from-blue hover:to-purple
 }
+.item-social-about{
+  @apply w-[31px] h-[31px] text-blue hover:text-white-secondary rounded-full border border-white-secondary flex items-center justify-center cursor-pointer hover:bg-gradient-to-r hover:from-blue hover:to-purple
+}
+
+.item-stat{
+  @apply flex flex-col items-center justify-center p-10 gap-4 text-center
+}

@@ -1,3 +1,4 @@
+import CtaFooter from '@/components/CtaFooter'
 import Divider from '@/components/Divider'
 import Experience from '@/components/Experience'
 import Hero from '@/components/Hero'
@@ -24,6 +25,13 @@ export default function Home() {
             <br />
             <br />
             <LandingCompanies />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <CtaFooter/>
             <br />
             <br />
             <br />
