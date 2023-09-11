@@ -7,16 +7,76 @@ import connectToDB from '@/utils/database'
 import ProjectModel from '@/models/Project'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 interface Props {
     project: IProject | null
 }
 
 const ProjectDetail: NextPage<Props> = ({ project }) => {
+    const [editedProject, setEditedProject] = useState({
+        judul: project?.judul || '',
+        deskripsi: project?.deskripsi || '',
+        image: project?.image || [], // Anda mungkin perlu menangani upload gambar
+        content: project?.content || '',
+        teknologi: project?.teknologi || [],
+        link: project?.link || ''
+    })
+
+    const handleInputChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+        const { name, value } = e.target
+        // console.error(`Field ${name} changed to:`, value)
+
+        setEditedProject(prevEditedProject => ({
+            ...prevEditedProject,
+            [name]: value
+        }))
+    }
+
+    const handleTechInputChange: React.ChangeEventHandler<
+        HTMLInputElement
+    > = e => {
+        const { name, value } = e.target
+        if (name) {
+            const index = parseInt(name, 10) // Konversi nama input menjadi indeks
+            setEditedProject(prevEditedProject => {
+                const updatedTech = [...prevEditedProject.teknologi]
+                updatedTech[index] = value
+                return { ...prevEditedProject, teknologi: updatedTech }
+            })
+        }
+    }
+
+    const addTechInput = () => {
+        setEditedProject(prevEditedProject => ({
+            ...prevEditedProject,
+            teknologi: [...prevEditedProject.teknologi, ''] // Menambahkan input kosong
+        }))
+    }
+
     const router = useRouter()
-    const handleEdit = () => {
-        // Navigasi ke halaman edit proyek dengan menggunakan query parameter projectId
-        router.push(`/admin/projects/edit/${project?._id}`)
+    const handleEdit = async () => {
+        try {
+            const response = await fetch('/api/projects', {
+                method: 'PUT', // Anda dapat menggunakan POST atau PUT, tergantung pada endpoint server Anda
+                body: JSON.stringify({ id: project?._id, ...editedProject }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            if (response.ok) {
+                // Redirect ke halaman proyek setelah penyimpanan berhasil
+                router.push(`/admin/projects/${project?._id}`)
+            } else {
+                // Tampilkan pesan kesalahan jika penyimpanan gagal
+                console.error('Gagal menyimpan perubahan proyek')
+            }
+        } catch (error) {
+            console.error('Terjadi kesalahan:', error)
+        }
     }
 
     const handleDelete = async () => {
@@ -98,7 +158,9 @@ const ProjectDetail: NextPage<Props> = ({ project }) => {
                                     type='text'
                                     placeholder='Type here'
                                     className='input input-bordered w-full'
-                                    value={project.judul}
+                                    name='judul'
+                                    value={editedProject.judul}
+                                    onChange={handleInputChange}
                                 />
                             </div>
                             <div className='form-control w-full'>
@@ -111,7 +173,9 @@ const ProjectDetail: NextPage<Props> = ({ project }) => {
                                     type='text'
                                     placeholder='Type here'
                                     className='input input-bordered w-full'
-                                    value={project.deskripsi}
+                                    name='deskripsi'
+                                    value={editedProject.deskripsi}
+                                    onChange={handleInputChange}
                                 />
                             </div>
                             <div className='form-control w-full'>
@@ -130,24 +194,38 @@ const ProjectDetail: NextPage<Props> = ({ project }) => {
                                 </label>
                                 <textarea
                                     className='textarea textarea-bordered h-24'
-                                    placeholder='Bio'>
-                                    {project.content}
-                                </textarea>
+                                    placeholder='Type here'
+                                    name='content' // Tambahkan name
+                                    value={editedProject.content} // Gunakan nilai dari editedProject
+                                    onChange={handleInputChange} // Handler untuk mengubah nilai
+                                />
                             </div>
-                            <div className='form-control w-full'>
+                            <div className='form-control'>
                                 <label className='label'>
                                     <span className='label-text'>
                                         Teknologi
                                     </span>
                                 </label>
-                                <input
-                                    type='text'
-                                    placeholder='Type here'
-                                    className='input input-bordered w-full'
-                                    value={project.teknologi.join(', ')}
-                                />
+                                <div className='grid grid-cols-3 max-sm:grid-cols-1 gap-3'>
+                                    {editedProject.teknologi.map(
+                                        (tech, index) => (
+                                            <input
+                                                key={index}
+                                                type='text'
+                                                placeholder='Type here'
+                                                className='input input-bordered w-full mb-3'
+                                                name={index.toString()} // Nama input adalah indeks
+                                                value={tech}
+                                                onChange={handleTechInputChange}
+                                            />
+                                        )
+                                    )}
+                                </div>
+                                <button className='btn' onClick={addTechInput}>
+                                    Tambah Teknologi
+                                </button>
                             </div>
-                            <div className='form-control w-full'>
+                            <div className='form-control'>
                                 <label className='label'>
                                     <span className='label-text'>Link</span>
                                 </label>
@@ -155,7 +233,9 @@ const ProjectDetail: NextPage<Props> = ({ project }) => {
                                     type='text'
                                     placeholder='Type here'
                                     className='input input-bordered w-full'
-                                    value={project.link}
+                                    name='link' // Tambahkan name
+                                    value={editedProject.link} // Gunakan nilai dari editedProject
+                                    onChange={handleInputChange} // Handler untuk mengubah nilai
                                 />
                             </div>
 
