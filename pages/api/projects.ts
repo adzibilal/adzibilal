@@ -25,6 +25,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 res.status(200).json(project)
             } else if (search) {
                 // Jika terdapat parameter 'search', lakukan pencarian berdasarkan judul, deskripsi, konten, dan teknologi
+                const totalProjects = await Project.countDocuments()
+                const totalPages = Math.ceil(totalProjects / itemsPerPage)
                 const projects = await Project.find({
                     $or: [
                         { judul: { $regex: search, $options: 'i' } }, // Pencarian judul (case-insensitive)
@@ -33,7 +35,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                         { teknologi: { $in: [search] } } // Pencarian teknologi (mencocokkan array)
                     ]
                 })
-                res.status(200).json(projects)
+                    .skip((pageNumber - 1) * itemsPerPage)
+                    .limit(itemsPerPage)
+                res.status(200).json({
+                    projects,
+                    totalProjects,
+                    totalPages,
+                    currentPage: pageNumber
+                })
             } else {
                 if (query.endpoint === 'projects-lp') {
                     // Jika endpoint adalah 'projects-lp', ambil 6 proyek acak
