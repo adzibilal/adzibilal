@@ -5,10 +5,25 @@ import Project, { IProject } from '@/models/Project'
 connectToDB()
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+    const { method, query } = req
+    const { projectId } = query
+
     if (req.method === 'GET') {
         try {
-            const projects = await Project.find()
-            res.status(200).json(projects)
+            if (projectId) {
+                // Jika projectId ada, cari proyek berdasarkan projectId
+                const project = await Project.findById(projectId)
+
+                if (!project) {
+                    return res.status(404).json({ error: 'Project not found' })
+                }
+
+                res.status(200).json(project)
+            } else {
+                // Jika projectId tidak ada, ambil semua data proyek
+                const projects = await Project.find()
+                res.status(200).json(projects)
+            }
         } catch (error) {
             res.status(500).json({ error: 'Server error' })
         }

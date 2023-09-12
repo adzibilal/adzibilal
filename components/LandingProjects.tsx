@@ -1,5 +1,6 @@
 'use client'
 import { IProject } from '@/models/Project'
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
 export default function LandingProjects() {
     const [projects, setProjects] = useState<IProject[]>([])
@@ -63,9 +64,9 @@ export default function LandingProjects() {
                                 </div>
                                 <div className='title'>{project.judul}</div>
                                 <div className='sub'>{project.deskripsi}</div>
-                                <div className='button-gradient'>
+                                <Link href={`/projects/${project._id}`} className='button-gradient'>
                                     Learn More
-                                </div>
+                                </Link>
                             </div>
                         </div>
                     ))}
