@@ -125,25 +125,23 @@ const ProjectDetail: NextPage<Props> = ({ project }) => {
                 </div>
                 {project ? (
                     <div className='grid grid-cols-[1fr_2fr] items-start gap-10 max-md:grid-cols-1'>
-                        <div className='card bg-base-100 shadow-xl max-md:w-full'>
-                            <figure>
-                                <img
-                                    src={project.image[0]}
-                                    alt={project.judul}
-                                />
-                            </figure>
-                            <div className='card-body'>
-                                <h2 className='card-title'>{project.judul}</h2>
-                                <p>{project.deskripsi}</p>
-                                <div className='card-actions justify-start mt-3'>
-                                    {project.teknologi.map((tech, index) => (
-                                        <div
-                                            className='badge badge-outline'
-                                            key={index}>
-                                            {tech}
-                                        </div>
-                                    ))}
-                                </div>
+                        <div className='card card-compact w-full bg-base-100 shadow-xl p-3'>
+                            <div className='carousel w-full'>
+                                {project.image.map((url, index) => (
+                                    <div
+                                        id={`${index}`}
+                                        key={index}
+                                        className='carousel-item w-full'>
+                                        <img src={url} className='w-full rounded-md' />
+                                    </div>
+                                ))}
+                            </div>
+                            <div className='flex justify-center w-full py-2 gap-2 mt-2'>
+                                {project.image.map((url, index) => (
+                                    <a href={`#${index}`} className='btn btn-sm' key={index}>
+                                        {index + 1}
+                                    </a>
+                                ))}
                             </div>
                         </div>
 
