@@ -1,8 +1,11 @@
 import { NextPage } from 'next'
 import AdminLayout from '../layout'
 import Link from 'next/link'
-import { useState, ChangeEvent, FormEvent } from 'react'
+import { useState, ChangeEvent, FormEvent, useEffect, useRef } from 'react'
 import cloudinary from 'cloudinary'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { useRouter } from 'next/router'
 
 // Import 'cloudinary' only in a server-side context
 if (typeof window === 'undefined') {
@@ -26,6 +29,8 @@ interface FormData {
 interface Props {}
 
 const Add: NextPage<Props> = ({}) => {
+    const router = useRouter()
+
     const [formData, setFormData] = useState<FormData>({
         judul: '',
         deskripsi: '',
@@ -42,18 +47,14 @@ const Add: NextPage<Props> = ({}) => {
         setFormData({ ...formData, [name]: value })
     }
 
-    const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
-        const files = e.target.files
-        console.error(process.env.CLOUD_NAME)
-        if (files) {
-            const fileArray = Array.from(files)
-            const imageUrls: string[] = [] // Create an array to store image URLs
-
-            // Iterate through the selected files and perform Cloudinary upload
-            fileArray.forEach(async file => {
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault()
+        try {
+            // Upload semua file
+            const uploadPromises = selectedFiles.map(async file => {
                 const formData = new FormData()
                 formData.append('file', file)
-                formData.append('upload_preset', 'ml_default') // Create an upload preset in Cloudinary
+                formData.append('upload_preset', 'ml_default') // Buat upload preset di Cloudinary
 
                 try {
                     const response = await fetch(
@@ -66,43 +67,113 @@ const Add: NextPage<Props> = ({}) => {
 
                     if (response.ok) {
                         const data = await response.json()
-                        imageUrls.push(data.secure_url)
-                        setFormData(prevData => ({
-                            ...prevData,
-                            image: [...prevData.image, ...imageUrls]
-                        }))
+                        console.error(data)
+                        return data.secure_url // Mengembalikan secure URL
                     } else {
                         console.error('Image upload failed.')
+                        return null // Mengembalikan null jika gagal
                     }
                 } catch (error) {
                     console.error('Error:', error)
+                    return null // Mengembalikan null jika ada kesalahan
                 }
             })
-        }
-    }
 
-    const handleSubmit = async (e: FormEvent) => {
-        e.preventDefault()
+            // Menunggu sampai semua file terupload
+            const uploadedUrls = await Promise.all(uploadPromises)
 
-        try {
+            // Cek apakah ada yang gagal diunggah
+            if (uploadedUrls.includes(null)) {
+                console.error('Gagal mengunggah beberapa gambar.')
+                return // Hentikan jika ada yang gagal
+            }
+
+            // Update formData dengan URL gambar yang berhasil diunggah
+            const updatedFormData = {
+                ...formData,
+                image: uploadedUrls
+            }
+
+            // Kirim data form ke server
             const response = await fetch('/api/projects', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(updatedFormData) // Pastikan Anda mengirim formData yang sudah diperbarui
             })
 
             if (response.ok) {
-                // Redirect or show a success message
+                // Redirect atau tampilkan pesan sukses
+                console.error('Sukses')
+                router.push('/admin/projects')
             } else {
-                console.error('Failed to add project.')
+                console.error('Gagal menambahkan proyek.')
             }
         } catch (error) {
             console.error('Error:', error)
         }
     }
 
+    const [selectedImages, setSelectedImages] = useState<string[]>([])
+    const [selectedFiles, setSelectedFiles] = useState<File[]>([])
+    const fileInputRef = useRef<HTMLInputElement | null>(null)
+
+    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const files = event.target.files
+
+        if (files && files.length > 0) {
+            const newImages: string[] = []
+            const newFiles: File[] = []
+
+            for (let i = 0; i < files.length; i++) {
+                const imageUrl = URL.createObjectURL(files[i])
+                newImages.push(imageUrl)
+                newFiles.push(files[i])
+            }
+
+            setSelectedImages(prevImages => [...prevImages, ...newImages])
+            setSelectedFiles(prevFiles => [...prevFiles, ...newFiles])
+        }
+    }
+
+    const handleDeleteImage = (index: number) => {
+        const updatedImages = [...selectedImages]
+        const updatedFiles = [...selectedFiles]
+
+        updatedImages.splice(index, 1)
+        updatedFiles.splice(index, 1)
+
+        setSelectedImages(updatedImages)
+        setSelectedFiles(updatedFiles)
+    }
+
+    const handleAddImage = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.click()
+        }
+    }
+
+    const handleTechInputChange: React.ChangeEventHandler<
+        HTMLInputElement
+    > = e => {
+        const { name, value } = e.target
+        if (name) {
+            const index = parseInt(name, 10) // Konversi nama input menjadi indeks
+            setFormData(prevEditedProject => {
+                const updatedTech = [...prevEditedProject.teknologi]
+                updatedTech[index] = value
+                return { ...prevEditedProject, teknologi: updatedTech }
+            })
+        }
+    }
+
+    const addTechInput = () => {
+        setFormData(prevEditedProject => ({
+            ...prevEditedProject,
+            teknologi: [...prevEditedProject.teknologi, ''] // Menambahkan input kosong
+        }))
+    }
     return (
         <AdminLayout>
             <div className='max-container max-lg:!mx-5'>
@@ -121,74 +192,138 @@ const Add: NextPage<Props> = ({}) => {
                     </div>
                 </div>
 
-                <form onSubmit={handleSubmit}>
-                    <div className='mb-4'>
-                        <label htmlFor='judul'>Judul</label>
-                        <input
-                            type='text'
-                            id='judul'
-                            name='judul'
-                            value={formData.judul}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className='mb-4'>
-                        <label htmlFor='deskripsi'>Deskripsi</label>
-                        <textarea
-                            id='deskripsi'
-                            name='deskripsi'
-                            value={formData.deskripsi}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className='mb-4'>
-                        <label htmlFor='content'>Content</label>
-                        <textarea
-                            id='content'
-                            name='content'
-                            value={formData.content}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className='mb-4'>
-                        <label htmlFor='teknologi'>Teknologi</label>
-                        <input
-                            type='text'
-                            id='teknologi'
-                            name='teknologi'
-                            value={formData.teknologi.join(', ')} // Display as a comma-separated string
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className='mb-4'>
-                        <label htmlFor='link'>Link</label>
-                        <input
-                            type='text'
-                            id='link'
-                            name='link'
-                            value={formData.link}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className='mb-4'>
-                        <label htmlFor='image'>Image</label>
+                <div className='grid grid-cols-2 gap-10 max-md:grid-cols-1'>
+                    <div className=''>
+                        <div className='preview-box grid grid-cols-2 gap-3'>
+                            {selectedImages.map((imageUrl, index) => (
+                                <div
+                                    key={index}
+                                    className='image-preview bg-black-secondary p-3 rounded-md'>
+                                    <img
+                                        src={imageUrl}
+                                        alt={`Preview ${index}`}
+                                        className='aspect-video object-cover rounded-md'
+                                    />
+                                    <button
+                                        onClick={() => handleDeleteImage(index)}
+                                        className='btn btn-sm btn-error mt-3'>
+                                        Hapus
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                        <button onClick={handleAddImage} className='btn mt-5'>
+                            Tambah Gambar
+                        </button>
                         <input
                             type='file'
                             id='image'
                             name='image'
                             accept='image/*'
+                            className='hidden'
+                            ref={fileInputRef}
                             multiple // Allow multiple file selection
-                            onChange={handleFileUpload}
+                            onChange={handleFileChange}
                         />
                     </div>
+                    <form>
+                        <div className='mb-4'>
+                            <div className='form-control w-full'>
+                                <label className='label'>
+                                    <span className='label-text'>Judul</span>
+                                </label>
+                                <input
+                                    type='text'
+                                    id='judul'
+                                    name='judul'
+                                    value={formData.judul}
+                                    onChange={handleInputChange}
+                                    placeholder='Ketikan Judul'
+                                    className='input input-bordered w-full'
+                                />
+                            </div>
+                        </div>
+                        <div className='mb-4'>
+                            <div className='form-control w-full'>
+                                <label className='label'>
+                                    <span className='label-text'>
+                                        Deskripsi
+                                    </span>
+                                </label>
+                                <input
+                                    type='text'
+                                    id='deskripsi'
+                                    name='deskripsi'
+                                    value={formData.deskripsi}
+                                    onChange={handleInputChange}
+                                    placeholder='Ketikan Deskripsi Singkat'
+                                    className='input input-bordered w-full'
+                                />
+                            </div>
+                        </div>
+                        <div className='mb-4'>
+                            <div className='form-control w-full'>
+                                <label className='label'>
+                                    <span className='label-text'>Konten</span>
+                                </label>
+                                <textarea
+                                    id='content'
+                                    name='content'
+                                    value={formData.content}
+                                    onChange={handleInputChange}
+                                    className='input input-bordered w-full pt-[10px] min-h-[150px]'
+                                    placeholder='Ketikan Konten Project'
+                                />
+                            </div>
+                        </div>
 
-                    <button type='submit'>Add Project</button>
-                </form>
+                        <div className='mb-4'>
+                            <div className='form-control'>
+                                <label className='label'>
+                                    <span className='label-text'>
+                                        Teknologi
+                                    </span>
+                                </label>
+                                <div className='grid grid-cols-3 max-sm:grid-cols-1 gap-3'>
+                                    {formData.teknologi.map((tech, index) => (
+                                        <input
+                                            key={index}
+                                            type='text'
+                                            placeholder='Type here'
+                                            className='input input-bordered w-full mb-3'
+                                            name={index.toString()} // Nama input adalah indeks
+                                            value={tech}
+                                            onChange={handleTechInputChange}
+                                        />
+                                    ))}
+                                </div>
+                                <div className='btn' onClick={addTechInput}>
+                                    Tambah Teknologi
+                                </div>
+                            </div>
+                        </div>
+                        <div className='mb-4'>
+                            <div className='form-control w-full'>
+                                <label className='label'>
+                                    <span className='label-text'>Link</span>
+                                </label>
+                                <input
+                                    type='text'
+                                    id='link'
+                                    name='link'
+                                    value={formData.link}
+                                    onChange={handleInputChange}
+                                    placeholder='Ketikan Link Project'
+                                    className='input input-bordered w-full'
+                                />
+                            </div>
+                        </div>
+
+                        <button onClick={handleSubmit} className='btn'>
+                            Add Project
+                        </button>
+                    </form>
+                </div>
             </div>
         </AdminLayout>
     )

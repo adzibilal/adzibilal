@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import connectToDB from '@/utils/database'
 import Project, { IProject } from '@/models/Project'
-import formidable from 'formidable';
 
 connectToDB()
 
@@ -14,31 +13,30 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             res.status(500).json({ error: 'Server error' })
         }
     } else if (req.method === 'POST') {
-        const form = new formidable.IncomingForm()
+        const {
+            judul,
+            deskripsi,
+            content,
+            teknologi,
+            link,
+            image // Sekarang Anda mengharapkan image sebagai array dari URL gambar
+        } = req.body
 
-        form.parse(req, async (err, fields, files) => {
-            if (err) {
-                res.status(500).json({ error: 'Server error' })
-                return
-            }
+        try {
+            const newProject = new Project({
+                judul,
+                deskripsi,
+                content,
+                teknologi,
+                link,
+                image // Simpan array URL gambar langsung ke dalam model proyek
+            })
 
-            const { judul, deskripsi, content, teknologi, link } = fields
-            // const image = files?.image?.path // Temporary path to the uploaded image
-
-            try {
-                const newProject = new Project({
-                    judul,
-                    deskripsi,
-                    content,
-                    teknologi,
-                    link
-                })
-                await newProject.save()
-                res.status(201).json(newProject)
-            } catch (error) {
-                res.status(500).json({ error: 'Server error' })
-            }
-        })
+            await newProject.save()
+            res.status(201).json(newProject)
+        } catch (error) {
+            res.status(500).json({ error: 'Server error' })
+        }
     } else if (req.method === 'PUT') {
         const { id, judul, deskripsi, image, content, teknologi, link } =
             req.body

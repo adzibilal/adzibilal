@@ -40,7 +40,7 @@ const Projects: NextPage<Props> = ({}) => {
             <div className='max-container'>
             <div className='flex items-center justify-between mb-8'>
                     <h1 className='text-4xl'>Projects</h1>
-                    <Link href='/admin/projects/add' className="btn btn-info">Add Project</Link>
+                    <Link href='/admin/projects/add' className="btn">Add Project</Link>
                 </div>
                 {loading ? (
                     <span className='loading loading-spinner loading-lg'></span>
@@ -61,7 +61,6 @@ const Projects: NextPage<Props> = ({}) => {
                                     <th>Title</th>
                                     <th>Description</th>
                                     <th>Image</th>
-                                    <th>Content</th>
                                     <th>Technologies</th>
                                     <th>Link</th>
                                     <th></th>
@@ -87,7 +86,6 @@ const Projects: NextPage<Props> = ({}) => {
                                                 style={{ maxWidth: '100px' }}
                                             />
                                         </td>
-                                        <td>{project.content}</td>
                                         <td>
                                             {project.teknologi.map(tech => (
                                                 <span
@@ -107,7 +105,7 @@ const Projects: NextPage<Props> = ({}) => {
                                         </td>
                                         <th>
                                             <button
-                                                className='btn btn-ghost btn-xs'
+                                                className='btn btn-xs'
                                                 onClick={() =>
                                                     router.push(
                                                         `/admin/projects/${project._id}`
@@ -126,7 +124,6 @@ const Projects: NextPage<Props> = ({}) => {
                                     <th>Title</th>
                                     <th>Description</th>
                                     <th>Image</th>
-                                    <th>Content</th>
                                     <th>Technologies</th>
                                     <th>Link</th>
                                     <th></th>
