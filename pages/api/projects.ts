@@ -6,7 +6,11 @@ connectToDB()
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     const { method, query } = req
-    const { projectId, search } = query
+    const { projectId, page, perPage, search } = query
+    //@ts-ignore
+    const pageNumber = parseInt(page) || 1
+    //@ts-ignore
+    const itemsPerPage = parseInt(perPage) || 10 // Ubah sesuai kebutuhan
 
     if (req.method === 'GET') {
         try {
@@ -38,9 +42,19 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                     ])
                     res.status(200).json(projects)
                 } else {
-                    // Jika projectId tidak ada dan endpoint bukan 'projects-lp', ambil semua data proyek
+                    // Jika projectId tidak ada dan tidak ada parameter 'search', ambil data proyek dengan pagination
+                    const totalProjects = await Project.countDocuments()
+                    const totalPages = Math.ceil(totalProjects / itemsPerPage)
                     const projects = await Project.find()
-                    res.status(200).json(projects)
+                        .skip((pageNumber - 1) * itemsPerPage)
+                        .limit(itemsPerPage)
+
+                    res.status(200).json({
+                        projects,
+                        totalProjects,
+                        totalPages,
+                        currentPage: pageNumber
+                    })
                 }
             }
         } catch (error) {
