@@ -1,5 +1,6 @@
 'use client'
 import { IProject } from '@/models/Project'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 export default function LandingProjects() {
@@ -10,7 +11,7 @@ export default function LandingProjects() {
         // Fungsi untuk mengambil data proyek dari API
         const fetchProjects = async () => {
             try {
-                const response = await fetch('/api/projects') // Ganti URL sesuai dengan rute API Anda
+                const response = await fetch('/api/projects?endpoint=projects-lp') // Ganti URL sesuai dengan rute API Anda
                 if (response.ok) {
                     const data = await response.json()
                     setProjects(data)
@@ -49,12 +50,14 @@ export default function LandingProjects() {
                 <div className='grid grid-cols-3 gap-5 mt-8 max-md:grid-cols-2 max-sm:grid-cols-1'>
                     {projects.map(project => (
                         <div className='item-project' key={project._id}>
-                            <img
+                            <Image
                                 src={project.image[0]}
                                 alt=''
+                                width={400}
+                                height={300}
                                 className='img-project'
                             />
-                            <div className='desc'>
+                            <div className='desc mb-3'>
                                 <div className='tech'>
                                     {project.teknologi.map((tech, index) => (
                                         <div className='item-tech' key={index}>

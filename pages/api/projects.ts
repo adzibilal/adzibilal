@@ -20,9 +20,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
                 res.status(200).json(project)
             } else {
-                // Jika projectId tidak ada, ambil semua data proyek
-                const projects = await Project.find()
-                res.status(200).json(projects)
+                if (query.endpoint === 'projects-lp') {
+                    // Jika endpoint adalah 'projects-lp', ambil 6 proyek acak
+                    const projects = await Project.aggregate([
+                        { $sample: { size: 6 } } // Mengambil 6 dokumen acak dari koleksi
+                    ])
+                    res.status(200).json(projects)
+                } else {
+                    // Jika projectId tidak ada dan endpoint bukan 'projects-lp', ambil semua data proyek
+                    const projects = await Project.find()
+                    res.status(200).json(projects)
+                }
             }
         } catch (error) {
             res.status(500).json({ error: 'Server error' })
