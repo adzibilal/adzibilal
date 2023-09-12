@@ -8,6 +8,7 @@ import ProjectModel from '@/models/Project'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import Image from 'next/image'
 
 interface Props {
     project: IProject | null
@@ -138,8 +139,8 @@ const ProjectDetail: NextPage<Props> = ({ project }) => {
                             </div>
                             <div className='flex justify-center w-full py-2 gap-2 mt-2'>
                                 {project.image.map((url, index) => (
-                                    <a href={`#${index}`} className='btn btn-sm' key={index}>
-                                        {index + 1}
+                                    <a href={`#${index}`} key={index}>
+                                       <img src={url} alt="" className='object-cover rounded-md'/>
                                     </a>
                                 ))}
                             </div>
