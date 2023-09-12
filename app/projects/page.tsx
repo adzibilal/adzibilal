@@ -3,7 +3,8 @@ import { IProject } from '@/models/Project'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-export default function LandingProjects() {
+
+export default function Projects() {
     const [projects, setProjects] = useState<IProject[]>([])
     const [loading, setLoading] = useState(true) // Menambahkan state untuk loading
 
@@ -11,7 +12,7 @@ export default function LandingProjects() {
         // Fungsi untuk mengambil data proyek dari API
         const fetchProjects = async () => {
             try {
-                const response = await fetch('/api/projects?endpoint=projects-lp') // Ganti URL sesuai dengan rute API Anda
+                const response = await fetch('/api/projects') // Ganti URL sesuai dengan rute API Anda
                 if (response.ok) {
                     const data = await response.json()
                     setProjects(data)
@@ -28,19 +29,13 @@ export default function LandingProjects() {
 
         fetchProjects()
     }, [])
-
     return (
-        <section className='max-container !mt-20 !pb-20 max-2xl:!mx-5'>
-            <div className='header-l-projects flex justify-between items-center max-sm:flex-col max-sm:items-start max-sm:gap-5'>
-                <div className='title-section'>
-                    Look at My <br />
-                    <span className='text-gradient'>Projects.</span>
-                </div>
+        <div className='max-container max-lg:!mx-5'>
+            <br /><br /><br />
 
-                <p className='text-right max-sm:text-left'>
-                    Explore my portfolio to witness <br /> my creative web and
-                    design projects
-                </p>
+            <div className='title-section'>
+                Look at All <br />
+                <span className='text-gradient'>My Projects.</span>
             </div>
             {loading ? ( // Tampilkan "Loading" jika loading adalah true
                <div className="w-full py-10 flex items-center justify-center">
@@ -75,7 +70,7 @@ export default function LandingProjects() {
                     ))}
                 </div>
             )}
-            <Link href='/projects' className='button-gradient m-auto mt-7'>Show More</Link>
-        </section>
+            <br /><br /><br />
+        </div>
     )
 }
