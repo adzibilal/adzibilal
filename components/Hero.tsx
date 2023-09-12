@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Hero () {
     return (
@@ -16,7 +17,7 @@ export default function Hero () {
             <p className="sub-hero">As a dedicated Frontend Developer, I'm passionate about crafting innovative and user-centric web experiences for global audiences.</p>
 
             <div className="flex gap-5 mt-5 max-sm:flex-col">
-                <div className="button button-lg !rounded-full">GET IN TOUCH</div>
+                <Link href='https://wa.link/e051oz' target='_blank' className="button button-lg !rounded-full">GET IN TOUCH</Link>
                 <div className="button-outline button-lg !rounded-full">VIEW ALL WORKS</div>
             </div>
         </section>

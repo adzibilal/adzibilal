@@ -32,7 +32,7 @@ export default function Navbar() {
                     ))}
                 </div>
 
-                <div className='cta-nav'>LET'S TALK</div>
+                <Link href='https://wa.link/e051oz' target='_blank' className='cta-nav'>LET'S TALK</Link>
             </div>
 
             <div className='menu-mobile' onClick={toggleMenu}>
