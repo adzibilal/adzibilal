@@ -7,6 +7,7 @@ export interface IProject extends Document {
     content: string
     teknologi: string[]
     link: string
+    createdAt: Date
 }
 
 // Periksa apakah model Project sudah ada sebelumnya
@@ -16,14 +17,20 @@ try {
     Project = mongoose.model<IProject>('Project')
 } catch (error) {
     // Jika model belum ada, maka kompilasi model baru
-    const projectSchema = new Schema<IProject>({
-        judul: { type: String, required: true },
-        deskripsi: { type: String, required: true },
-        image: [{ type: String, required: true }],
-        content: { type: String, required: true },
-        teknologi: [{ type: String, required: true }],
-        link: { type: String, required: true }
-    })
+    const projectSchema = new Schema<IProject>(
+        {
+            judul: { type: String, required: true },
+            deskripsi: { type: String, required: true },
+            image: [{ type: String, required: true }],
+            content: { type: String, required: true },
+            teknologi: [{ type: String, required: true }],
+            link: { type: String, required: true },
+            createdAt: { type: Date, required: true, default: Date.now }
+        },
+        {
+            timestamps: true // Menambahkan createdAt dan updatedAt secara otomatis
+        }
+    )
 
     Project = mongoose.model<IProject>('Project', projectSchema)
 }
