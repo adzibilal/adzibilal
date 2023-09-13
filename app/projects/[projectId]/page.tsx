@@ -1,6 +1,7 @@
 'use client'
 import CtaFooter from '@/components/CtaFooter'
 import { NextPage } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
@@ -49,15 +50,15 @@ export default function Page({ params }: { params: { projectId: string } }) {
     if (!project) {
         // Menampilkan pesan atau indikator loading jika data belum tersedia
         return (
-            <div className="loading-box w-full h-[80vh] max-container max-lg:!mx-5 flex items-center justify-center">
-                <span className="loading loading-ring loading-lg"></span>
+            <div className='loading-box w-full h-[80vh] max-container max-lg:!mx-5 flex items-center justify-center'>
+                <span className='loading loading-ring loading-lg'></span>
             </div>
         )
     }
 
     return (
-        <div className='max-container max-lg:!mx-5 min-h-[80vh]'>
-            <div className='text-sm breadcrumbs'>
+        <div className='max-container max-lg:!mx-5 min-h-[80vh] !mt-10'>
+            <div className='text-sm breadcrumbs mb-5'>
                 <ul>
                     <li>
                         <Link href='/'>Home</Link>
@@ -76,16 +77,24 @@ export default function Page({ params }: { params: { projectId: string } }) {
                                 id={`${index}`}
                                 key={index}
                                 className='carousel-item w-full'>
-                                <img src={url} className='w-full' />
+                                <Image
+                                    width={600}
+                                    height={400}
+                                    alt='img-project'
+                                    src={url}
+                                    className='w-full'
+                                />
                             </div>
                         ))}
                     </div>
                     <div className='flex justify-center w-full gap-1'>
                         {project.image.map((url, index) => (
                             <a href={`#${index}`} key={index}>
-                                <img
+                                <Image
+                                    width={120}
+                                    height={80}
+                                    alt='img-project'
                                     src={url}
-                                    alt=''
                                     className='object-cover'
                                 />
                             </a>
@@ -120,8 +129,8 @@ export default function Page({ params }: { params: { projectId: string } }) {
                     </Link>
                 </div>
             </div>
-
-            <CtaFooter /> <br /><br />
+            <CtaFooter /> <br />
+            <br />
         </div>
     )
 }

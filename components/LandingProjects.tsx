@@ -11,7 +11,9 @@ export default function LandingProjects() {
         // Fungsi untuk mengambil data proyek dari API
         const fetchProjects = async () => {
             try {
-                const response = await fetch('/api/projects?endpoint=projects-lp') // Ganti URL sesuai dengan rute API Anda
+                const response = await fetch(
+                    '/api/projects?endpoint=projects-lp'
+                ) // Ganti URL sesuai dengan rute API Anda
                 if (response.ok) {
                     const data = await response.json()
                     setProjects(data)
@@ -43,9 +45,9 @@ export default function LandingProjects() {
                 </p>
             </div>
             {loading ? ( // Tampilkan "Loading" jika loading adalah true
-               <div className="w-full py-10 flex items-center justify-center">
-                <span className="loading loading-ring loading-lg"></span>
-               </div>
+                <div className='w-full py-10 flex items-center justify-center'>
+                    <span className='loading loading-ring loading-lg'></span>
+                </div>
             ) : (
                 <div className='grid grid-cols-3 gap-5 mt-8 max-md:grid-cols-2 max-sm:grid-cols-1'>
                     {projects.map(project => (
@@ -67,7 +69,9 @@ export default function LandingProjects() {
                                 </div>
                                 <div className='title'>{project.judul}</div>
                                 <div className='sub'>{project.deskripsi}</div>
-                                <Link href={`/projects/${project._id}`} className='button-gradient'>
+                                <Link
+                                    href={`/projects/${project._id}`}
+                                    className='button-gradient'>
                                     Learn More
                                 </Link>
                             </div>
@@ -75,9 +79,10 @@ export default function LandingProjects() {
                     ))}
                 </div>
             )}
-            <div className="flex items-center justify-center">
-
-            <Link href='/projects' className='button-gradient mt-7'>Show More</Link>
+            <div className='flex items-center justify-center'>
+                <Link href='/projects' className='button-gradient mt-7'>
+                    Show More
+                </Link>
             </div>
         </section>
     )

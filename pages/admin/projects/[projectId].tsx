@@ -109,7 +109,7 @@ const ProjectDetail: NextPage<Props> = ({ project }) => {
 
     return (
         <AdminLayout>
-            <div className='max-container max-lg:!mx-5'>
+            <div className='max-container max-lg:!mx-5 '>
                 <div className='flex items-center justify-between mb-8'>
                     <h1 className='text-4xl'>Project Detail</h1>
                     <div className='text-sm breadcrumbs'>
@@ -133,14 +133,14 @@ const ProjectDetail: NextPage<Props> = ({ project }) => {
                                         id={`${index}`}
                                         key={index}
                                         className='carousel-item w-full'>
-                                        <img src={url} className='w-full rounded-md' />
+                                        <Image width={400} height={300} alt='img-project' src={url} className='w-full rounded-md' />
                                     </div>
                                 ))}
                             </div>
                             <div className='flex justify-center w-full py-2 gap-2 mt-2'>
                                 {project.image.map((url, index) => (
                                     <a href={`#${index}`} key={index}>
-                                       <img src={url} alt="" className='object-cover rounded-md'/>
+                                       <Image width={100} height={80} alt='img-project' src={url} className='object-cover rounded-md'/>
                                     </a>
                                 ))}
                             </div>

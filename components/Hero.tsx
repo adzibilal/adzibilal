@@ -18,7 +18,7 @@ export default function Hero () {
 
             <div className="flex gap-5 mt-5 max-sm:flex-col">
                 <Link href='https://wa.link/e051oz' target='_blank' className="button button-lg !rounded-full">GET IN TOUCH</Link>
-                <div className="button-outline button-lg !rounded-full">VIEW ALL WORKS</div>
+                <Link href='/projects' className="button-outline button-lg !rounded-full">VIEW ALL WORKS</Link>
             </div>
         </section>
     )
