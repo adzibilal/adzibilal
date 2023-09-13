@@ -108,7 +108,37 @@ const ProjectComments: React.FC<ProjectCommentsProps> = ({ projectId }) => {
     }
 
     return (
-        <div className='grid grid-cols-[1.5fr_2fr] gap-5 mb-10'>
+        <div className='grid grid-cols-[1.5fr_2fr] gap-5 mb-10 max-md:grid-cols-1'>
+            <div className=''>
+                <h2 className='text-gradient font-chakra font-extrabold text-4xl mb-3'>
+                    Komentar
+                </h2>
+
+                <ul className='mb-3'>
+                    {comments.map(comment => (
+                        <li
+                            key={comment._id}
+                            className='mb-3 pb-2 border-b border-base-content px-3'>
+                            <div className='flex justify-between'>
+                                <strong className='font-chakra text-lg'>
+                                    {comment.nama}
+                                </strong>{' '}
+                                <span className='text-xs text-base-content'>
+                                    {' '}
+                                    {formatDateToCustomFormat(
+                                        comment.createdAt
+                                    )}
+                                </span>
+                            </div>
+                            <p>{comment.comment}</p>
+                        </li>
+                    ))}
+
+                    {comments.length == 0 && (
+                        <div className=''>Belum ada komentar</div>
+                    )}
+                </ul>
+            </div>
             <div className=''>
                 <div className='form-control w-full'>
                     <label className='label'>
@@ -154,32 +184,6 @@ const ProjectComments: React.FC<ProjectCommentsProps> = ({ projectId }) => {
                 <div className='btn mt-5' onClick={handleCommentSubmit}>
                     Kirim Komentar
                 </div>
-            </div>
-            <div className=''>
-                <h2 className='text-gradient font-chakra font-extrabold text-4xl mb-3'>
-                    Komentar
-                </h2>
-
-                <ul className='mb-3'>
-                    {comments.map(comment => (
-                        <li key={comment._id} className='mb-3 pb-2 border-b border-base-content px-3'>
-                            <div className='flex justify-between'>
-                                <strong className='font-chakra text-lg'>{comment.nama}</strong>{' '}
-                                <span className='text-xs text-base-content'>
-                                    {' '}
-                                    {formatDateToCustomFormat(
-                                        comment.createdAt
-                                    )}
-                                </span>
-                            </div>
-                            <p>{comment.comment}</p>
-                        </li>
-                    ))}
-
-                    {comments.length == 0 && 
-                        <div className="">Belum ada komentar</div>
-                    }
-                </ul>
             </div>
         </div>
     )
