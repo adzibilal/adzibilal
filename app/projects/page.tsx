@@ -30,7 +30,7 @@ export default function Projects() {
         try {
             if (!searchQuery) {
                 const response = await fetch(
-                    `/api/projects?page=${page}&perPage=6`
+                    `/api/projects?page=${page}&perPage=9`
                 ) // Ganti URL sesuai dengan rute API Anda
                 if (response.ok) {
                     const data = await response.json()
@@ -45,7 +45,7 @@ export default function Projects() {
                 }
             } else {
                 const response = await fetch(
-                    `/api/projects?page=${page}&perPage=6&search=${searchQuery}`
+                    `/api/projects?page=${page}&perPage=9&search=${searchQuery}`
                 ) // Ganti URL sesuai dengan rute API Anda
                 if (response.ok) {
                     const data = await response.json()
@@ -76,7 +76,7 @@ export default function Projects() {
             <br />
             <br />
 
-            <div className='flex justify-between items-center'>
+            <div className='flex justify-between items-center max-md:flex-col max-md:items-start gap-5'>
                 <div className='title-section'>
                     Look at All <br />
                     <span className='text-gradient'>My Projects.</span>
@@ -89,7 +89,9 @@ export default function Projects() {
                             className='input input-bordered'
                             onChange={handleInputChange}
                         />
-                        <button className='btn btn-square' onClick={() => fetchProjects(1, searchValue)}>
+                        <button
+                            className='btn btn-square'
+                            onClick={() => fetchProjects(1, searchValue)}>
                             <svg
                                 xmlns='http://www.w3.org/2000/svg'
                                 className='h-6 w-6'
@@ -143,27 +145,71 @@ export default function Projects() {
                 </div>
             )}
             {!loading && pagination && (
-                <div className='w-full flex justify-end'>
-                    <div className='join mt-6'>
-                        {pagination.currentPage > 1 && (
-                            <button
-                                className='join-item btn'
-                                onClick={() =>
-                                    fetchProjects(pagination.currentPage - 1)
-                                }>
-                                «
+                <div className='flex justify-center mt-10'>
+                    <div className='join'>
+                        <button
+                            className={`join-item btn ${
+                                pagination.currentPage === 1
+                                    ? 'btn-disabled'
+                                    : ''
+                            }`}
+                            onClick={() => fetchProjects(1, searchValue)}>
+                            1
+                        </button>
+                        {pagination.currentPage > 3 && (
+                            <button className='join-item btn btn-disabled'>
+                                ...
                             </button>
                         )}
-                        <button className='join-item btn'>
-                            Page {pagination.currentPage}
-                        </button>
-                        {pagination.currentPage < pagination.totalPages && (
+                        {pagination.currentPage > 2 && (
                             <button
                                 className='join-item btn'
                                 onClick={() =>
-                                    fetchProjects(pagination.currentPage + 1)
+                                    fetchProjects(
+                                        pagination.currentPage - 1,
+                                        searchValue
+                                    )
                                 }>
-                                »
+                                {pagination.currentPage - 1}
+                            </button>
+                        )}
+                        {pagination.currentPage !== 1 && (
+                            <button className='join-item btn btn-active'>
+                                {pagination.currentPage}
+                            </button>
+                        )}
+                        {pagination.currentPage < pagination.totalPages - 1 && (
+                            <button
+                                className='join-item btn'
+                                onClick={() =>
+                                    fetchProjects(
+                                        pagination.currentPage + 1,
+                                        searchValue
+                                    )
+                                }>
+                                {pagination.currentPage + 1}
+                            </button>
+                        )}
+                        {pagination.currentPage < pagination.totalPages - 2 && (
+                            <button className='join-item btn btn-disabled'>
+                                ...
+                            </button>
+                        )}
+                        {pagination.currentPage !== pagination.totalPages && (
+                            <button
+                                className={`join-item btn ${
+                                    pagination.currentPage ===
+                                    pagination.totalPages
+                                        ? 'btn-disabled'
+                                        : ''
+                                }`}
+                                onClick={() =>
+                                    fetchProjects(
+                                        pagination.totalPages,
+                                        searchValue
+                                    )
+                                }>
+                                {pagination.totalPages}
                             </button>
                         )}
                     </div>
