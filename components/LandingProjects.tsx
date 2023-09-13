@@ -75,7 +75,10 @@ export default function LandingProjects() {
                     ))}
                 </div>
             )}
-            <Link href='/projects' className='button-gradient m-auto mt-7'>Show More</Link>
+            <div className="flex items-center justify-center">
+
+            <Link href='/projects' className='button-gradient mt-7'>Show More</Link>
+            </div>
         </section>
     )
 }

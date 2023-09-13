@@ -1,3 +1,4 @@
+import { SOCIAL_MEDIA_URLS } from '@/constants/socialMediaConstants'
 import { technologies } from '@/constants/technologies'
 import {
     faFacebook,
@@ -54,22 +55,22 @@ const About: NextPage<Props> = ({}) => {
             </div>
             <div className='grid grid-cols-3 divide-x my-20 max-md:grid-cols-1 max-md:divide-x-0 '>
                 <div className='item-stat'>
-                    <h1 className='text-gradient text-5xl font-chakra font-extrabold'>
+                    <h1 className='text-gradient text-6xl font-chakra font-extrabold'>
+                        50+
+                    </h1>
+                    <p>Projects Done</p>
+                </div>
+                <div className='item-stat'>
+                    <h1 className='text-gradient text-6xl font-chakra font-extrabold'>
                         4+
                     </h1>
                     <p>Years of Experience in Frontend Developer</p>
                 </div>
                 <div className='item-stat'>
-                    <h1 className='text-gradient text-5xl font-chakra font-extrabold'>
-                        4+
+                    <h1 className='text-gradient text-6xl font-chakra font-extrabold'>
+                        100%
                     </h1>
-                    <p>Years of Experience in Frontend Developer</p>
-                </div>
-                <div className='item-stat'>
-                    <h1 className='text-gradient text-5xl font-chakra font-extrabold'>
-                        4+
-                    </h1>
-                    <p>Years of Experience in Frontend Developer</p>
+                    <p>Client Satisfaction</p>
                 </div>
             </div>
 
@@ -90,22 +91,30 @@ const About: NextPage<Props> = ({}) => {
                     </p>
                     <div className='flex gap-3 mt-[20px]'>
                         <div className='item-social-about'>
-                            <Link href='/'>
+                            <Link
+                                href={SOCIAL_MEDIA_URLS.instagram}
+                                target='_blank'>
                                 <FontAwesomeIcon icon={faInstagram} />
                             </Link>
                         </div>
                         <div className='item-social-about'>
-                            <Link href='/'>
+                            <Link
+                                href={SOCIAL_MEDIA_URLS.facebook}
+                                target='_blank'>
                                 <FontAwesomeIcon icon={faFacebook} />
                             </Link>
                         </div>
                         <div className='item-social-about'>
-                            <Link href='/'>
+                            <Link
+                                href={SOCIAL_MEDIA_URLS.linkedin}
+                                target='_blank'>
                                 <FontAwesomeIcon icon={faLinkedin} />
                             </Link>
                         </div>
                         <div className='item-social-about'>
-                            <Link href='/'>
+                            <Link
+                                href={SOCIAL_MEDIA_URLS.linkedin}
+                                target='_blank'>
                                 <FontAwesomeIcon icon={faTiktok} />
                             </Link>
                         </div>
