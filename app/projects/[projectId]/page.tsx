@@ -1,5 +1,6 @@
 'use client'
 import CtaFooter from '@/components/CtaFooter'
+import ProjectComments from '@/components/ProjectComment'
 import { NextPage } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -129,6 +130,9 @@ export default function Page({ params }: { params: { projectId: string } }) {
                     </Link>
                 </div>
             </div>
+
+            <ProjectComments projectId={projectId} />
+            
             <CtaFooter /> <br />
             <br />
         </div>
