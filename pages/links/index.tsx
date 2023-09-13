@@ -8,7 +8,7 @@ interface Props {}
 
 const Index: NextPage<Props> = ({}) => {
     return (
-        <div className='links w-screen min-h-screen bg-black-primary'>
+        <div className='links w-screen min-h-screen bg-black-primary px-5'>
             <div className='max-container flex items-center justify-center min-h-screen flex-col'>
                 <Image
                     className='rounded-full'
@@ -23,16 +23,32 @@ const Index: NextPage<Props> = ({}) => {
                     <span>Hello, I'm Adzi Bilal M H,</span> <br /> Frontend
                     Developer based in Indonesia
                 </h1>
-                <div className='box-links w-full max-w-[500px] bg-white-secondary p-3 mt-5'>
-                    <Link href='/'>
-                        <div className='item-links text-black-primary'>
-                            Web Portofolio
+                <div className="box-links w-full max-w-[500px]">
+
+                <Link href='/webgratis2023' className='w-full'>
+                    <div className='w-full  bg-white-secondary p-3 mt-5 animate-bounce'>
+                        <div className='item-links text-black-primary text-center font-chakra font-semibold'>
+                            Event Pembuatan Web Gratis ! 🔥🔥🔥
                         </div>
-                    </Link>
+                    </div>
+                </Link>
+                <Link href='/' className='w-full'>
+                    <div className='w-full bg-white-secondary p-3 mt-5'>
+                        <div className='item-links text-black-primary text-center font-chakra font-semibold'>
+                            Portofolio Saya
+                        </div>
+                    </div>
+                </Link>
+                <Link href='https://wa.link/e051oz' className='w-full'>
+                    <div className='w-full bg-white-secondary p-3 mt-5'>
+                        <div className='item-links text-black-primary text-center font-chakra font-semibold'>
+                            WhatsApp Saya
+                        </div>
+                    </div>
+                </Link>
                 </div>
 
                 <div className='flex justify-between items-center mt-[20px] flex-col max-md: gap-8'>
-                    <p>&copy; Adzi Bilal M H 2023</p>
 
                     <div className='flex gap-3'>
                         <div className='item-social !text-white-secondary'>

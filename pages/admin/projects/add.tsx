@@ -6,6 +6,7 @@ import cloudinary from 'cloudinary'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'next/router'
+import LoadingOverlay from '@/components/LoadingOverlay'
 
 // Import 'cloudinary' only in a server-side context
 if (typeof window === 'undefined') {
@@ -40,6 +41,8 @@ const Add: NextPage<Props> = ({}) => {
         link: ''
     })
 
+    const [loading, setloading] = useState(false)
+
     const handleInputChange = (
         e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
@@ -49,6 +52,7 @@ const Add: NextPage<Props> = ({}) => {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
+        setloading(true)
         try {
             // Upload semua file
             const uploadPromises = selectedFiles.map(async file => {
@@ -107,11 +111,14 @@ const Add: NextPage<Props> = ({}) => {
                 // Redirect atau tampilkan pesan sukses
                 console.error('Sukses')
                 router.push('/admin/projects')
+                setloading(false)
             } else {
                 console.error('Gagal menambahkan proyek.')
+                setloading(false)
             }
         } catch (error) {
             console.error('Error:', error)
+            setloading(false)
         }
     }
 
@@ -176,6 +183,7 @@ const Add: NextPage<Props> = ({}) => {
     }
     return (
         <AdminLayout>
+            {loading && <LoadingOverlay />}
             <div className='max-container max-lg:!mx-5'>
                 <div className='flex items-center justify-between mb-8'>
                     <h1 className='text-4xl'>Add Project</h1>
