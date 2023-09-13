@@ -201,3 +201,7 @@ body {
 .item-stat{
   @apply flex flex-col items-center justify-center p-10 gap-4 text-center
 }
+
+.item-social path{
+  @apply fill-white-secondary
+}
