@@ -55,7 +55,7 @@ const Index: NextPage<Props> = ({}) => {
 
     return (
         <div className='flex items-center justify-center w-full h-screen'>
-            <div className='w-full max-w-[500px]'>
+            <div className='w-full max-w-[500px] px-5'>
                 <form onSubmit={handleLogin}>
                     <div className='mb-4'>
                         <div className='form-control w-full'>
