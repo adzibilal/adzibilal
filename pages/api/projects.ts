@@ -48,6 +48,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 })
                     .skip((pageNumber - 1) * itemsPerPage)
                     .limit(itemsPerPage)
+                    .sort({ createdAt: -1 })
 
                 res.status(200).json({
                     projects: paginatedProjects,
@@ -69,7 +70,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                     const projects = await Project.find()
                         .skip((pageNumber - 1) * itemsPerPage)
                         .limit(itemsPerPage)
-
+                        .sort({ createdAt: -1 })
+                        
                     res.status(200).json({
                         projects,
                         totalProjects,

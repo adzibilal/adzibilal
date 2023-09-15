@@ -118,7 +118,9 @@ const Projects: NextPage<Props> = ({}) => {
                     </div>
                 </div>
                 {loading ? (
-                    <span className='loading loading-spinner loading-lg'></span>
+                    <div className='w-full h-[50vh]  flex items-center justify-center'>
+                        <span className='loading loading-ring loading-lg scale-150'></span>
+                    </div>
                 ) : (
                     <div className='overflow-x-auto'>
                         <table className='table'>
