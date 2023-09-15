@@ -5,6 +5,8 @@ import { NextPage } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import Head from 'next/head';
+
 
 interface Project {
     _id: string
@@ -59,6 +61,16 @@ export default function Page({ params }: { params: { projectId: string } }) {
 
     return (
         <div className='max-container max-lg:!mx-5 min-h-[80vh] !mt-10'>
+            <Head>
+                {/* Meta Gambar */}
+                <meta property='og:image' content={project.image[0]} />
+
+                {/* Judul */}
+                <title>{project.judul} - Portofolio Adzi Bilal</title>
+
+                {/* Deskripsi */}
+                <meta name='description' content={project.deskripsi} />
+            </Head>
             <div className='text-sm breadcrumbs mb-5'>
                 <ul>
                     <li>
@@ -130,9 +142,7 @@ export default function Page({ params }: { params: { projectId: string } }) {
                     </Link>
                 </div>
             </div>
-
             <ProjectComments projectId={projectId} />
-            
             <CtaFooter /> <br />
             <br />
         </div>
