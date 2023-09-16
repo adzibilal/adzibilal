@@ -48,7 +48,7 @@ export function kirimProgressWa(
     nomorTelepon: string,
     idProyek: string,
     nama: string,
-    namaBisnis: string
+    namaBisnis?: string
 ): void {
     if (nomorTelepon.startsWith('0')) {
         nomorTelepon = '62' + nomorTelepon.slice(1)
