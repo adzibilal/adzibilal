@@ -8,6 +8,7 @@ export interface IPendaftaran extends Document {
     namaBisnis?: string
     jenisWebsite: 'Web Portofolio' | 'Web Landing Page'
     createdAt: Date
+    updatedAt: Date
 }
 
 // Periksa apakah model Pendaftaran sudah ada sebelumnya
@@ -29,7 +30,8 @@ try {
                 required: true,
                 enum: ['Web Portofolio', 'Web Landing Page']
             },
-            createdAt: { type: Date, required: true, default: Date.now }
+            createdAt: { type: Date, required: true, default: Date.now },
+            updatedAt: { type: Date, required: true, default: Date.now }
         },
         { timestamps: true }
     )

@@ -22,23 +22,23 @@ export default function AdminLayout({
             router.push('/login')
         }
 
-        // Memeriksa waktu kadaluarsa token (expire time)
-        try {
-            //@ts-ignore
-            const decodedToken = jwt.decode(token)
+        // // Memeriksa waktu kadaluarsa token (expire time)
+        // try {
+        //     //@ts-ignore
+        //     const decodedToken = jwt.decode(token)
 
-            if (decodedToken) {
-                const currentTimestamp = Math.floor(Date.now() / 1000)
+        //     if (decodedToken) {
+        //         const currentTimestamp = Math.floor(Date.now() / 1000)
 
-                if (decodedToken.exp && decodedToken.exp < currentTimestamp) {
-                    // Token telah kadaluwarsa, arahkan ke /login
-                    router.push('/login')
-                }
-            }
-        } catch (error) {
-            console.error('Error decoding token:', error)
-            // Handle error decoding token if needed
-        }
+        //         if (decodedToken.exp && decodedToken.exp < currentTimestamp) {
+        //             // Token telah kadaluwarsa, arahkan ke /login
+        //             router.push('/login')
+        //         }
+        //     }
+        // } catch (error) {
+        //     console.error('Error decoding token:', error)
+        //     // Handle error decoding token if needed
+        // }
     }, [])
 
     // Handler untuk logout
@@ -66,6 +66,9 @@ export default function AdminLayout({
                     <ul className='menu menu-horizontal px-1'>
                         <li>
                             <Link href='/admin/projects'>Projects</Link>
+                        </li>
+                        <li>
+                            <Link href='/admin/pendaftaran'>Pendaftaran</Link>
                         </li>
                         <li>
                             <div className='text-error hover:!text-error' onClick={handleLogout}>Logout</div>

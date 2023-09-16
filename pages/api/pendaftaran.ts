@@ -101,15 +101,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             res.status(500).json({ error: 'Server error' })
         }
     } else if (req.method === 'PUT') {
-        const { id, nama, email, noWhatsApp, namaBisnis, jenisWebsite } =
+        const { _id, nama, email, noWhatsApp, namaBisnis, jenisWebsite, status } =
             req.body
         try {
-            const updatedPendaftaran = await Pendaftaran.findByIdAndUpdate(id, {
+            const updatedPendaftaran = await Pendaftaran.findByIdAndUpdate(_id, {
                 nama,
                 email,
                 noWhatsApp,
                 namaBisnis,
-                jenisWebsite
+                jenisWebsite,
+                status
             })
             if (!updatedPendaftaran) {
                 return res.status(404).json({ error: 'Project not found' })

@@ -6,9 +6,9 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -127,7 +127,7 @@ body {
 .img-project {
   aspect-ratio: 4/3;
   object-fit: cover;
-  @apply bg-base-content !w-full
+  @apply bg-base-content !w-full;
 }
 
 .item-project {
@@ -164,44 +164,44 @@ body {
 
 .img-exp {
   @apply w-[50px] rounded-full h-[50px] cursor-pointer transition-all;
-  filter: saturate(0)
+  filter: saturate(0);
 }
 
 .item-exp:hover .img-exp {
-  filter: saturate(1)
+  filter: saturate(1);
 }
 
-.item-exp{
-  @apply flex justify-between gap-2 items-center pb-5 border-b border-base-content/50 mb-5
+.item-exp {
+  @apply flex justify-between gap-2 items-center pb-5 border-b border-base-content/50 mb-5;
 }
 
 .item-exp .title {
   @apply font-chakra font-extrabold text-2xl;
 }
 
-.item-exp .prod{
-  @apply text-sm text-base-content
+.item-exp .prod {
+  @apply text-sm text-base-content;
 }
 
-.img-com-landing{
+.img-com-landing {
   @apply w-[200px] m-auto cursor-pointer transition-all;
   filter: opacity(0.5);
 }
-.img-com-landing:hover{
+.img-com-landing:hover {
   filter: none;
 }
 
-.item-social{
-  @apply w-[31px] h-[31px] rounded-full border border-white-secondary flex items-center justify-center cursor-pointer hover:bg-gradient-to-r hover:from-blue hover:to-purple
+.item-social {
+  @apply w-[31px] h-[31px] rounded-full border border-white-secondary flex items-center justify-center cursor-pointer hover:bg-gradient-to-r hover:from-blue hover:to-purple;
 }
-.item-social-about{
-  @apply w-[31px] h-[31px] text-blue hover:text-white-secondary rounded-full border border-white-secondary flex items-center justify-center cursor-pointer hover:bg-gradient-to-r hover:from-blue hover:to-purple
-}
-
-.item-stat{
-  @apply flex flex-col items-center justify-center p-10 gap-4 text-center
+.item-social-about {
+  @apply w-[31px] h-[31px] text-blue hover:text-white-secondary rounded-full border border-white-secondary flex items-center justify-center cursor-pointer hover:bg-gradient-to-r hover:from-blue hover:to-purple;
 }
 
-.item-social path{
-  @apply fill-white-secondary
+.item-stat {
+  @apply flex flex-col items-center justify-center p-10 gap-4 text-center;
+}
+
+.item-social path {
+  @apply fill-white-secondary;
 }
