@@ -26,7 +26,7 @@ export const workExperience = [
       school: 'Sekolah Tinggi Teknologi Bandung',
       major: 'Teknik Informatika',
       imageSrc: '/images/sttb.png',
-      period: '2017 - 2020',
+      period: '2022 - 2026',
     },
     {
       school: 'SMK Negri 2 Cimahi',
