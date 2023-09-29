@@ -10,7 +10,7 @@ export default function LandingCompanies() {
 
             <div className='grid grid-cols-4 gap-10 max-lg:grid-cols-3 max-md:grid-cols-2'>
                 {companies.map(url => (
-                    <img className='img-com-landing' src={url} alt='' />
+                    <img className='img-com-landing bg-black-primary px-2 py-2 rounded-lg' src={url} alt='' />
                 ))}
             </div>
         </section>

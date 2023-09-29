@@ -36,7 +36,7 @@ const About: NextPage<Props> = ({}) => {
                 {technologies.map((tech, index) => (
                     <div
                         key={index}
-                        className='tech-about relative mt-[30px] bg-black-secondary p-5 rounded-md'>
+                        className='tech-about relative mt-[30px] bg-white-primary dark:bg-black-secondary p-5 rounded-md'>
                         <div className='ic mt-[-50px] w-[90px] h-[90px] p-1 bg-gradient-to-r from-blue to-purple rounded-full '>
                             <img
                                 src={tech.imageUrl}

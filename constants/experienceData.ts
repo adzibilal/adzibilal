@@ -20,7 +20,7 @@ export const workExperience = [
       period: '2019 - 2020',
     },
   ];
-  
+    
   export const educationData = [
     {
       school: 'Sekolah Tinggi Teknologi Bandung',

@@ -7,7 +7,7 @@ export default function LeadingBrands() {
             <h1 className='brands-title max-sm:text-center'>Trusted by leading brands</h1>
             <div className='carousel gap-10'>
                 {brands.map((brand, index) => (
-                    <div key={index} className='carousel-item brand-item'>
+                    <div key={index} className='carousel-item brand-item bg-black-primary px-2 py-2 rounded-lg'>
                         <Image
                             src={brand}
                             alt={`Brand ${brand}`}
