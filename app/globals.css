@@ -49,12 +49,11 @@ body {
 }
 
 .menu-desktop {
-  @apply flex justify-between gap-12 items-center max-lg:h-0 max-lg:absolute max-lg:top-[100%] max-lg:w-full max-lg:left-0 max-lg:px-3 max-lg:bg-black-primary overflow-hidden transition-all;
+  @apply flex justify-between gap-12 items-center max-lg:h-0 max-lg:absolute max-lg:top-[100%] max-lg:w-full max-lg:left-0 max-lg:px-3 max-lg:bg-white-primary dark:max-lg:bg-black-primary overflow-hidden transition-all;
 }
 
 .menu-desktop.showing {
-  @apply flex flex-col justify-start gap-4 items-end;
-  height: calc(100vh - 80px);
+  @apply flex flex-col justify-start gap-4 items-end h-max py-5;
 }
 
 .menu-desktop.showing .link-flex {
@@ -65,7 +64,7 @@ body {
 }
 
 .menu-desktop.showing .nav-link {
-  @apply bg-black-secondary rounded-none text-right hover:bg-white-primary;
+  @apply bg-white-secondary dark:bg-black-secondary rounded-none text-right hover:bg-white-secondary;
 }
 
 .hero {

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { navbarLinks } from '@/constants/navbarLinks'
 import React, { useState } from 'react'
+import ThemeToggle from './ToggleTheme'
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -39,6 +40,9 @@ export default function Navbar() {
                         className='cta-nav'>
                         LET'S TALK
                     </Link>
+
+                    <ThemeToggle />
+                    
                 </div>
 
                 <div className='menu-mobile' onClick={toggleMenu}>

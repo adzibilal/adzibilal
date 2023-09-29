@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import Footer from '@/components/Footer'
+import Providers from './providers'
 
 config.autoAddCss = false
 
@@ -21,11 +22,13 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang='en'>
+        <html lang='en' suppressHydrationWarning>
             <body className={inter.className}>
-                <Navbar />
-                {children}
-                <Footer />
+                <Providers>
+                    <Navbar />
+                    {children}
+                    <Footer />
+                </Providers>
             </body>
         </html>
     )
