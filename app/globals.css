@@ -137,7 +137,7 @@ body {
 }
 
 .item-project .sub {
-  @apply text-base-content text-sm mb-5;
+  @apply text-black-primary dark:text-base-content text-sm mb-5;
 }
 
 .item-project .tech {
