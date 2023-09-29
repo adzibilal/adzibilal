@@ -37,7 +37,7 @@ export default function Navbar() {
                     <Link
                         href='https://wa.link/e051oz'
                         target='_blank'
-                        className='cta-nav'>
+                        className='cta-nav border border-base-content'>
                         LET'S TALK
                     </Link>
 
