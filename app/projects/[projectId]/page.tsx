@@ -119,14 +119,14 @@ export default function Page({ params }: { params: { projectId: string } }) {
                     <div className='title-section text-gradient'>
                         {project.judul}
                     </div>
-                    <div className='text-base-content mb-4'>
+                    <div className='text-black-primary dark:text-gray mb-4'>
                         {project.deskripsi}
                     </div>
 
                     <div className='tech flex gap-2 mb-3'>
                         {project.teknologi.map((tech, index) => (
                             <div
-                                className='bg-white-secondary text-black-primary w-max px-3 py-1 rounded-full text-xs'
+                                className='bg-gray-light dark:bg-white-secondary text-black-primary w-max px-3 py-1 rounded-full text-xs'
                                 key={index}>
                                 {tech}
                             </div>
