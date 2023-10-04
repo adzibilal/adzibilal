@@ -6,6 +6,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import Footer from '@/components/Footer'
 import Providers from './providers'
+import Head from 'next/head'
 
 config.autoAddCss = false
 
@@ -23,6 +24,19 @@ export default function RootLayout({
 }) {
     return (
         <html lang='en' suppressHydrationWarning>
+            <Head>
+                {/* <!-- Google tag (gtag.js) --> */}
+                <script
+                    async
+                    src='https://www.googletagmanager.com/gtag/js?id=G-2M4S4LDT4K'></script>
+                <script>
+                    {` window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+
+                        gtag('config', 'G-2M4S4LDT4K');`}
+                </script>
+            </Head>
             <body className={inter.className}>
                 <Providers>
                     <Navbar />
