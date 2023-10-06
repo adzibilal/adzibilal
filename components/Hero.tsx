@@ -1,10 +1,17 @@
-import Image from "next/image";
-import Link from "next/link";
+'use client'
+import Image from 'next/image'
+import Link from 'next/link'
+import { motion } from 'framer-motion'
 
-export default function Hero () {
+export default function Hero() {
     return (
-        <section className="hero">
-            <Image
+        <section className='hero'>
+            <motion.div
+                className=''
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}>
+                <Image
                     className='rounded-full'
                     src='/images/ava-adzi.png'
                     alt='Adzi Logo'
@@ -12,14 +19,43 @@ export default function Hero () {
                     height={20}
                     priority
                 />
+            </motion.div>
 
-            <h1 className="hero-title"><span>Hello, I'm Adzi Bilal M H,</span> <br /> Frontend Developer based in Indonesia</h1>
-            <p className="sub-hero">As a dedicated Frontend Developer, I'm passionate about crafting innovative and user-centric web experiences for global audiences.</p>
+            <motion.h1
+                className='hero-title'
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.2 }}>
+                <span>Hello, I'm Adzi Bilal M H,</span> <br /> Frontend
+                Developer based in Indonesia
+            </motion.h1>
+            <motion.p
+                className='sub-hero'
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.5 }}>
+                As a dedicated Frontend Developer, I'm passionate about crafting
+                innovative and user-centric web experiences for global
+                audiences.
+            </motion.p>
 
-            <div className="flex gap-5 mt-5 max-sm:flex-col">
-                <Link href='https://wa.link/e051oz' target='_blank' className="button button-lg !rounded-full">GET IN TOUCH</Link>
-                <Link href='/projects' className="button-outline button-lg !rounded-full">VIEW ALL WORKS</Link>
-            </div>
+            <motion.div
+                className='flex gap-5 mt-5 max-sm:flex-col'
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.6}}>
+                <Link
+                    href='https://wa.link/e051oz'
+                    target='_blank'
+                    className='button button-lg !rounded-full'>
+                    GET IN TOUCH
+                </Link>
+                <Link
+                    href='/projects'
+                    className='button-outline button-lg !rounded-full'>
+                    VIEW ALL WORKS
+                </Link>
+            </motion.div>
         </section>
     )
 }

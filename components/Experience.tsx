@@ -1,14 +1,25 @@
-import { educationData, workExperience } from "@/constants/experienceData";
+'use client'
+import { educationData, workExperience } from '@/constants/experienceData'
+import { motion } from 'framer-motion'
 
 export default function Experience() {
     return (
         <section className='max-container grid grid-cols-2 gap-10 max-lg:!mx-5 max-lg:grid-cols-1'>
             <div className='experience-box'>
-                <div className='title-section mb-8'>
+                <motion.div
+                    className='title-section mb-8'
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1 }}>
                     <span className='text-gradient'>Work Experience</span>
-                </div>
+                </motion.div>
                 {workExperience.map((exp, index) => (
-                    <div key={index} className='item-exp'>
+                    <motion.div
+                        key={index}
+                        className='item-exp'
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1 }}>
                         <div className='flex gap-5 items-center'>
                             <img
                                 src={exp.imageSrc}
@@ -21,16 +32,25 @@ export default function Experience() {
                             </div>
                         </div>
                         <p>{exp.period}</p>
-                    </div>
+                    </motion.div>
                 ))}
             </div>
 
             <div className='experience-box'>
-                <div className='title-section mb-8'>
+                <motion.div
+                    className='title-section mb-8'
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1 }}>
                     <span className='text-gradient'>Education</span>
-                </div>
+                </motion.div>
                 {educationData.map((edu, index) => (
-                    <div key={index} className='item-exp'>
+                    <motion.div
+                        key={index}
+                        className='item-exp'
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1 }}>
                         <div className='flex gap-5 items-center'>
                             <img
                                 src={edu.imageSrc}
@@ -43,7 +63,7 @@ export default function Experience() {
                             </div>
                         </div>
                         <p>{edu.period}</p>
-                    </div>
+                    </motion.div>
                 ))}
             </div>
         </section>

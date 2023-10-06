@@ -19,6 +19,7 @@
     "autoprefixer": "10.4.15",
     "cloudinary": "^1.40.0",
     "formidable": "^3.5.1",
+    "framer-motion": "^10.16.4",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.0.0",
     "mongoose": "^7.5.0",

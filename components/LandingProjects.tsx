@@ -3,6 +3,7 @@ import { IProject } from '@/models/Project'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 export default function LandingProjects() {
     const [projects, setProjects] = useState<IProject[]>([])
     const [loading, setLoading] = useState(true) // Menambahkan state untuk loading
@@ -33,7 +34,11 @@ export default function LandingProjects() {
 
     return (
         <section className='max-container !mt-20 !pb-20 max-2xl:!mx-5'>
-            <div className='header-l-projects flex justify-between items-center max-sm:flex-col max-sm:items-start max-sm:gap-5'>
+            <motion.div
+                className='header-l-projects flex justify-between items-center max-sm:flex-col max-sm:items-start max-sm:gap-5'
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}>
                 <div className='title-section'>
                     Look at My <br />
                     <span className='text-gradient'>Projects.</span>
@@ -43,7 +48,7 @@ export default function LandingProjects() {
                     Explore my portfolio to witness <br /> my creative web and
                     design projects
                 </p>
-            </div>
+            </motion.div>
             {loading ? ( // Tampilkan "Loading" jika loading adalah true
                 <div className='w-full py-10 flex items-center justify-center'>
                     <span className='loading loading-ring loading-lg'></span>
@@ -51,7 +56,12 @@ export default function LandingProjects() {
             ) : (
                 <div className='grid grid-cols-3 gap-5 mt-8 max-md:grid-cols-2 max-sm:grid-cols-1'>
                     {projects.map(project => (
-                        <div className='item-project' key={project._id}>
+                        <motion.div
+                            className='item-project'
+                            key={project._id}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1 }}>
                             <Image
                                 src={project.image[0]}
                                 alt=''
@@ -75,15 +85,19 @@ export default function LandingProjects() {
                                     Learn More
                                 </Link>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             )}
-            <div className='flex items-center justify-center'>
+            <motion.div
+                className='flex items-center justify-center'
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}>
                 <Link href='/projects' className='button-gradient mt-7'>
                     Show More
                 </Link>
-            </div>
+            </motion.div>
         </section>
     )
 }
