@@ -47,7 +47,7 @@ const About: NextPage<Props> = ({}) => {
                         <div className='text-gradient mt-3 text-3xl font-semibold font-chakra'>
                             {tech.name}
                         </div>
-                        <p className='text-base-content my-3 '>
+                        <p className='text-base-content dark:text-base-100 my-3 '>
                             {tech.description}
                         </p>
                     </div>

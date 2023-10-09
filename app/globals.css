@@ -203,3 +203,12 @@ body {
 .item-social path {
   @apply fill-white-secondary;
 }
+
+.slide-in{
+  @apply absolute top-0 left-0 w-full h-screen bg-purple;
+  transform-origin: bottom;
+}
+.slide-in{
+  @apply absolute top-0 left-0 w-full h-screen bg-purple;
+  transform-origin: top;
+}

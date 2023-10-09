@@ -7,6 +7,7 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 import Footer from '@/components/Footer'
 import Providers from './providers'
 import Head from 'next/head'
+import AnimateProvider from './animatePresence'
 
 config.autoAddCss = false
 
@@ -38,11 +39,13 @@ export default function RootLayout({
                 </script>
             </Head>
             <body className={inter.className}>
-                <Providers>
-                    <Navbar />
-                    {children}
-                    <Footer />
-                </Providers>
+                <AnimateProvider>
+                    <Providers>
+                        <Navbar />
+                        {children}
+                        <Footer />
+                    </Providers>
+                </AnimateProvider>
             </body>
         </html>
     )
