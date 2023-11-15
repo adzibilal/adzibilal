@@ -178,7 +178,7 @@ body {
 }
 
 .item-exp .prod {
-  @apply text-sm text-base-content;
+  @apply text-sm text-base-content dark:text-gray-light;
 }
 
 .img-com-landing {
