@@ -16,6 +16,7 @@
     "@types/node": "20.5.9",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
+    "@vercel/analytics": "^1.1.1",
     "autoprefixer": "10.4.15",
     "cloudinary": "^1.40.0",
     "formidable": "^3.5.1",

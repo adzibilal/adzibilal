@@ -8,6 +8,8 @@ import Footer from '@/components/Footer'
 import Providers from './providers'
 import Head from 'next/head'
 import AnimateProvider from './animatePresence'
+import { Analytics } from '@vercel/analytics/react';
+
 
 config.autoAddCss = false
 
@@ -46,6 +48,7 @@ export default function RootLayout({
                         <Footer />
                     </Providers>
                 </AnimateProvider>
+                <Analytics />
             </body>
         </html>
     )
