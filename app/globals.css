@@ -212,3 +212,10 @@ body {
   @apply absolute top-0 left-0 w-full h-screen bg-purple;
   transform-origin: top;
 }
+
+.spill-title {
+  @apply text-3xl font-extrabold font-chakra text-center;
+}
+.spill-title span {
+  @apply bg-gradient-to-r from-blue to-purple bg-clip-text text-transparent;
+}

@@ -1,10 +1,9 @@
-import Navbar from '@/components/Navbar'
+
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { config } from '@fortawesome/fontawesome-svg-core'
-import Footer from '@/components/Footer'
 import Providers from './providers'
 import Head from 'next/head'
 import AnimateProvider from './animatePresence'
@@ -43,9 +42,7 @@ export default function RootLayout({
             <body className={inter.className}>
                 <AnimateProvider>
                     <Providers>
-                        <Navbar />
                         {children}
-                        <Footer />
                     </Providers>
                 </AnimateProvider>
                 <Analytics />
