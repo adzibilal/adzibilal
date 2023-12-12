@@ -2,10 +2,16 @@
 
 export const workExperience = [
     {
+      company: 'Motiolabs',
+      position: 'Frontend Developer',
+      imageSrc: '/images/motiolabs_logo.jpeg',
+      period: 'Okt 2023 - Now',
+    },
+    {
       company: 'Jumpa ID',
       position: 'Frontend Developer',
       imageSrc: '/images/jumpa.id.png',
-      period: '2022 - Now',
+      period: 'Jul 2022 - Sep 2023',
     },
     {
       company: 'Bara Enterprise',
