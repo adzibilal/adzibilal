@@ -11,14 +11,35 @@ const ProjectPage = () => {
     const [isAdd, setIsAdd] = useState(false)
     const [project, setProject] = useState<Project[]>([])
 
+    const [currentPage, setCurrentPage] = useState(1)
+    const [pageSize, setPageSize] = useState(3)
+    const [totalPages, setTotalPages] = useState(1) // New state to track total pages
+    const [loading, setLoading] = useState(false) // New state to track loading status
+
     const getProject = async () => {
-        const res = await axios.get(`/api/project`)
-        return setProject(res.data)
+        try {
+            setLoading(true)
+            const res = await axios.get(
+                `/api/project?page=${currentPage}&pageSize=${pageSize}`
+            )
+            setProject(prevProject => [...prevProject, ...res.data.projects])
+            setTotalPages(Math.ceil(res.data.pageInfo.totalProjects / pageSize))
+        } catch (error) {
+            console.error('Error fetching projects:', error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const handleLoadMore = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(prevPage => prevPage + 1)
+        }
     }
 
     useEffect(() => {
         getProject()
-    }, [])
+    }, [currentPage, pageSize])
     return (
         <div>
             <div className='flex items-center justify-between'>
@@ -51,7 +72,9 @@ const ProjectPage = () => {
                             )}
                             <div className='absolute top-2 right-2'>
                                 {item.isActive ? (
-                                    <div className='bg-green w-max px-3 py-1 text-xs text-white'>Aktif</div>
+                                    <div className='bg-green w-max px-3 py-1 text-xs text-white'>
+                                        Aktif
+                                    </div>
                                 ) : (
                                     <div className='bg-zinc-200 w-max px-3 py-1 text-xs'>
                                         Non Aktif
@@ -78,6 +101,17 @@ const ProjectPage = () => {
                             </Link>
                         </div>
                     ))}
+            </div>
+
+            <div className='mt-5'>
+                {!loading && currentPage < totalPages && (
+                    <div
+                        onClick={handleLoadMore}
+                        className='bg-gradient-to-t from-purple to-blue text-white font-semibold text-center px-3 py-2 cursor-pointer hover:opacity-90 flex items-center gap-2'>
+                        Load More
+                    </div>
+                )}
+                {loading && <p>Loading...</p>}
             </div>
         </div>
     )
