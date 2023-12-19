@@ -6,13 +6,14 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { CgAdd } from 'react-icons/cg'
 import AddProject from './_components/add'
+import CardProjectSkeleton from './_components/skeletons/CardProjectSkeleton'
 
 const ProjectPage = () => {
     const [isAdd, setIsAdd] = useState(false)
     const [project, setProject] = useState<Project[]>([])
 
     const [currentPage, setCurrentPage] = useState(1)
-    const [pageSize, setPageSize] = useState(3)
+    const [pageSize, setPageSize] = useState(10)
     const [totalPages, setTotalPages] = useState(1) // New state to track total pages
     const [loading, setLoading] = useState(false) // New state to track loading status
 
@@ -107,11 +108,24 @@ const ProjectPage = () => {
                 {!loading && currentPage < totalPages && (
                     <div
                         onClick={handleLoadMore}
-                        className='bg-gradient-to-t from-purple to-blue text-white font-semibold text-center px-3 py-2 cursor-pointer hover:opacity-90 flex items-center gap-2'>
+                        className='text-center hover:text-blue cursor-pointer'>
                         Load More
                     </div>
                 )}
-                {loading && <p>Loading...</p>}
+                {loading && (
+                    <div className='grid grid-cols-3 xl:grid-cols-5 mt-10 gap-3'>
+                        <CardProjectSkeleton />
+                        <CardProjectSkeleton />
+                        <CardProjectSkeleton />
+                        <CardProjectSkeleton />
+                        <CardProjectSkeleton />
+                        <CardProjectSkeleton />
+                        <CardProjectSkeleton />
+                        <CardProjectSkeleton />
+                        <CardProjectSkeleton />
+                        <CardProjectSkeleton />
+                    </div>
+                )}
             </div>
         </div>
     )
