@@ -13,14 +13,20 @@
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@prisma/client": "^5.7.0",
+    "@tiptap/pm": "^2.1.13",
+    "@tiptap/react": "^2.1.13",
+    "@tiptap/starter-kit": "^2.1.13",
     "@types/node": "20.5.9",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "@vercel/analytics": "^1.1.1",
     "autoprefixer": "10.4.15",
+    "axios": "^1.6.2",
     "cloudinary": "^1.40.0",
     "formidable": "^3.5.1",
     "framer-motion": "^10.16.4",
+    "html-react-parser": "^5.0.9",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.0.0",
     "mongoose": "^7.5.0",
@@ -28,16 +34,19 @@
     "next-themes": "^0.2.1",
     "postcss": "8.4.29",
     "react": "18.2.0",
+    "react-cloudinary-upload-widget": "^2.0.0",
     "react-dom": "18.2.0",
     "react-dropzone": "^14.2.3",
     "react-helmet": "^6.1.0",
     "react-icons": "^4.12.0",
+    "sweetalert2": "^11.10.1",
     "tailwindcss": "3.3.3",
     "typescript": "5.2.2"
   },
   "devDependencies": {
     "@types/formidable": "^3.4.2",
     "@types/jsonwebtoken": "^9.0.2",
-    "daisyui": "^3.7.3"
+    "daisyui": "^3.7.3",
+    "prisma": "^5.7.0"
   }
 }

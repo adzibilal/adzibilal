@@ -1,0 +1,20 @@
+body {
+    @apply !bg-white-secondary;
+}
+.dashcon {
+    @apply bg-white-secondary text-black-primary pl-48;
+}
+
+.project-img-scroller {
+    @apply h-[85vh] overflow-y-auto;
+}
+
+.project-img-scroller::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+/* Hide scrollbar thumb */
+.project-img-scroller::-webkit-scrollbar-thumb {
+    display: none;
+}
