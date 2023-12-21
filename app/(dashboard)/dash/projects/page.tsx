@@ -13,6 +13,7 @@ const ProjectPage = () => {
     const [isAdd, setIsAdd] = useState(false)
     const [project, setProject] = useState<Project[]>([])
 
+    const [isInit, setIsInit] = useState(true)
     const [currentPage, setCurrentPage] = useState(1)
     const [pageSize, setPageSize] = useState(10)
     const [totalPages, setTotalPages] = useState(1) // New state to track total pages
@@ -47,11 +48,14 @@ const ProjectPage = () => {
 
     useEffect(() => {
         getProject()
+        setIsInit(false)
     }, [currentPage, pageSize])
 
     useEffect(() => {
-        setCurrentPage(1)
-        getProject()
+        if (!isInit) {
+            setCurrentPage(1)
+            getProject()
+        }
     }, [sortDirection])
     return (
         <div>

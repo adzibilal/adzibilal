@@ -9,6 +9,7 @@ export async function GET(req: Request) {
         const pageSize = Number(searchParams.get('pageSize')) || 10
         const searchTerm = searchParams.get('searchTerm') || '' // Menambahkan parameter pencarian
         const sortDirection = searchParams.get('sortDirection') || 'desc' // Menambahkan parameter arah pengurutan
+        const isActive = searchParams.get('isActive') === 'true'
 
         if (isNaN(page) || isNaN(pageSize) || page < 1 || pageSize < 1) {
             return NextResponse.json({ error: 'Invalid pagination parameters' })
@@ -19,14 +20,16 @@ export async function GET(req: Request) {
             skip: (page - 1) * pageSize,
             take: pageSize
         }
-
+        
         const searchOptions = {
             where: {
                 // Menambahkan kondisi pencarian
-                OR: [
-                    { title: { contains: searchTerm, mode: 'insensitive' } }
+                AND: [
+                    { title: { contains: searchTerm, mode: 'insensitive' } },
+                    // Menambahkan kondisi pencarian berdasarkan isActive hanya jika isActive true
+                    isActive ? { isActive: true } : undefined
                     // Tambahkan kondisi pencarian tambahan di sini
-                ]
+                ].filter(Boolean) // Filter nilai yang tidak valid (undefined)
             },
             orderBy: {
                 // Menambahkan pengurutan berdasarkan createdAt
@@ -40,7 +43,7 @@ export async function GET(req: Request) {
         // Mendapatkan data proyek sesuai dengan paginasi dan pencarian
         //@ts-ignore
         const projects = await db.project.findMany(combinedOptions)
-        
+
         // Menghitung jumlah total proyek (untuk keperluan informasi paginasi)
         //@ts-ignore
         const totalProjects = await db.project.count(searchOptions)

@@ -145,7 +145,7 @@ body {
 }
 
 .item-project .item-tech {
-  @apply text-xs text-white-secondary bg-black-primary/20 dark:bg-white-primary/40 px-2 py-1 rounded-full;
+  @apply text-xs text-zinc-900 bg-zinc-300 dark:bg-white-primary/40 px-2 py-1 rounded-full;
 }
 
 .button-gradient {

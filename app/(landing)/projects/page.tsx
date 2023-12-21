@@ -1,75 +1,60 @@
 'use client'
 import { IProject } from '@/models/Project'
+import { Project } from '@prisma/client'
+import axios from 'axios'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect, ChangeEvent } from 'react'
-
-interface IPagination {
-    currentPage: number
-    totalPages: number
-    totalProjects: number
-}
+import { AiOutlineException, AiOutlineSearch } from 'react-icons/ai'
+import CardProjectSkeleton from './_components/CardProjectSkeleton'
 
 export default function Projects() {
-    const [projects, setProjects] = useState<IProject[]>([])
-    const [pagination, setPagination] = useState<IPagination>({
-        currentPage: 1,
-        totalPages: 0,
-        totalProjects: 0
-    })
-    const [searchValue, setSearchValue] = useState('')
-    const [loading, setLoading] = useState(true) // Menambahkan state untuk loading
-    const handleInputChange = (
-        e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
-        const { name, value } = e.target
-        setSearchValue(value)
-    }
-    // Fungsi untuk mengambil data proyek dari API
-    const fetchProjects = async (page: number, searchQuery?: string) => {
+    const [project, setProject] = useState<Project[]>([])
+
+    const [isInit, setIsInit] = useState(true)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [pageSize, setPageSize] = useState(6)
+    const [totalPages, setTotalPages] = useState(1) // New state to track total pages
+    const [loading, setLoading] = useState(true) // New state to track loading status
+    const [searchTerm, setSearchTerm] = useState('') // State untuk menyimpan nilai pencarian
+    const [sortDirection, setSortDirection] = useState('desc') // State untuk menyimpan arah pengurutan
+
+    const getProject = async () => {
         try {
-            if (!searchQuery) {
-                const response = await fetch(
-                    `/api/projects?page=${page}&perPage=9`
-                ) // Ganti URL sesuai dengan rute API Anda
-                if (response.ok) {
-                    const data = await response.json()
-                    setProjects(data.projects)
-                    setPagination({
-                        currentPage: data.currentPage,
-                        totalPages: data.totalPages,
-                        totalProjects: data.totalProjects
-                    })
-                } else {
-                    console.error('Failed to fetch projects')
-                }
-            } else {
-                const response = await fetch(
-                    `/api/projects?page=${page}&perPage=9&search=${searchQuery}`
-                ) // Ganti URL sesuai dengan rute API Anda
-                if (response.ok) {
-                    const data = await response.json()
-                    setProjects(data.projects)
-                    setPagination({
-                        currentPage: data.currentPage,
-                        totalPages: data.totalPages,
-                        totalProjects: data.totalProjects
-                    })
-                } else {
-                    console.error('Failed to fetch projects')
-                }
+            setLoading(true)
+            // Reset project state jika currentPage adalah 1, artinya ini adalah pencarian baru
+            if (currentPage === 1) {
+                setProject([])
             }
+            const res = await axios.get(
+                `/api/project?page=${currentPage}&pageSize=${pageSize}&searchTerm=${searchTerm}&sortDirection=${sortDirection}&isActive=true`
+            )
+            setProject(prevProject => [...prevProject, ...res.data.projects])
+            setTotalPages(Math.ceil(res.data.pageInfo.totalProjects / pageSize))
         } catch (error) {
-            console.error('Error:', error)
+            console.error('Error fetching projects:', error)
         } finally {
-            // Set loading menjadi false setelah data selesai diambil, baik berhasil maupun gagal
             setLoading(false)
         }
     }
 
+    const handleLoadMore = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(prevPage => prevPage + 1)
+        }
+    }
+
     useEffect(() => {
-        fetchProjects(1)
-    }, [])
+        getProject()
+        setIsInit(false)
+    }, [currentPage, pageSize])
+
+    useEffect(() => {
+        if (!isInit) {
+            setCurrentPage(1)
+            getProject()
+        }
+    }, [sortDirection])
     return (
         <div className='max-container max-lg:!mx-5'>
             <br />
@@ -82,43 +67,58 @@ export default function Projects() {
                     <span className='text-gradient'>My Projects.</span>
                 </div>
                 <div className='form-control'>
-                    <div className='input-group'>
-                        <input
-                            type='text'
-                            placeholder='Search…'
-                            className='input input-bordered'
-                            onChange={handleInputChange}
-                        />
-                        <button
-                            className='btn btn-square'
-                            onClick={() => fetchProjects(1, searchValue)}>
-                            <svg
-                                xmlns='http://www.w3.org/2000/svg'
-                                className='h-6 w-6'
-                                fill='none'
-                                viewBox='0 0 24 24'
-                                stroke='currentColor'>
-                                <path
-                                    strokeLinecap='round'
-                                    strokeLinejoin='round'
-                                    strokeWidth='2'
-                                    d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
-                                />
-                            </svg>
-                        </button>
+                    <div className='flex items-center gap-3'>
+                        <div className='flex items-center justify-between gap-3'>
+                            <select
+                                value={sortDirection}
+                                onChange={e => setSortDirection(e.target.value)}
+                                className='px-3 py-2 border bg-zinc-50 border-zinc-100 dark:text-zinc-900 rounded-full'>
+                                <option value='asc'>Terlama</option>
+                                <option value='desc'>Terbaru</option>
+                            </select>
+                            <input
+                                type='text'
+                                placeholder='Search projects...'
+                                value={searchTerm}
+                                onChange={e => setSearchTerm(e.target.value)}
+                                onKeyDown={e => {
+                                    if (e.key === 'Enter') {
+                                        // Tombol "Enter" ditekan, panggil fungsi pencarian di sini
+                                        setCurrentPage(1) // Reset currentPage
+                                        getProject()
+                                    }
+                                }}
+                                className='px-3 py-2 border bg-zinc-50 border-zinc-100 focus:outline-none dark:text-zinc-900 rounded-full'
+                            />
+
+                            <button
+                                onClick={() => {
+                                    setCurrentPage(1)
+                                    getProject()
+                                }}
+                                className='text-2xl bg-gradient-to-t from-purple to-blue text-white font-semibold text-center px-3 py-2 cursor-pointer hover:opacity-90 flex items-center gap-2 rounded-full'>
+                                <AiOutlineSearch />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-            {loading ? ( // Tampilkan "Loading" jika loading adalah true
-                <div className='w-full py-10 flex items-center justify-center'>
-                    <span className='loading loading-ring loading-lg'></span>
+            {project.length === 0 && !loading && !isInit && (
+                <div className='flex items-center justify-center flex-col h-[50vh]'>
+                    <div className='text-zinc-500 text-6xl'>
+                        <AiOutlineException />
+                    </div>
+                    <div className='text-center mt-5 text-zinc-500'>
+                        Project yang Anda cari tidak ditemukan.
+                    </div>
                 </div>
-            ) : (
+            )}
+            {project && (
                 <div className='grid grid-cols-3 gap-5 mt-8 max-md:grid-cols-2 max-sm:grid-cols-1'>
-                    {projects.map(project => (
-                        <div className='item-project' key={project._id}>
+                    {project.map(project => (
+                        <div className='item-project' key={project.id}>
                             <Image
-                                src={project.image[0]}
+                                src={project.images[0]}
                                 alt=''
                                 width={400}
                                 height={300}
@@ -126,16 +126,16 @@ export default function Projects() {
                             />
                             <div className='desc mb-3'>
                                 <div className='tech'>
-                                    {project.teknologi.map((tech, index) => (
+                                    {project.tech.map((tech, index) => (
                                         <div className='item-tech' key={index}>
                                             {tech}
                                         </div>
                                     ))}
                                 </div>
-                                <div className='title'>{project.judul}</div>
-                                <div className='sub'>{project.deskripsi}</div>
+                                <div className='title'>{project.title}</div>
+                                <div className='sub'>{project.description}</div>
                                 <Link
-                                    href={`/projects/${project._id}`}
+                                    href={`/projects/${project.id}`}
                                     className='button-gradient'>
                                     Learn More
                                 </Link>
@@ -144,78 +144,37 @@ export default function Projects() {
                     ))}
                 </div>
             )}
-            {!loading && pagination && (
-                <div className='flex justify-center mt-10'>
-                    <div className='join'>
-                        <button
-                            className={`join-item btn ${
-                                pagination.currentPage === 1
-                                    ? 'btn-disabled'
-                                    : ''
-                            }`}
-                            onClick={() => fetchProjects(1, searchValue)}>
-                            1
-                        </button>
-                        {pagination.currentPage > 3 && (
-                            <button className='join-item btn btn-disabled'>
-                                ...
-                            </button>
-                        )}
-                        {pagination.currentPage > 2 && (
-                            <button
-                                className='join-item btn'
-                                onClick={() =>
-                                    fetchProjects(
-                                        pagination.currentPage - 1,
-                                        searchValue
-                                    )
-                                }>
-                                {pagination.currentPage - 1}
-                            </button>
-                        )}
-                        {pagination.currentPage !== 1 && (
-                            <button className='join-item btn btn-active'>
-                                {pagination.currentPage}
-                            </button>
-                        )}
-                        {pagination.currentPage < pagination.totalPages - 1 && (
-                            <button
-                                className='join-item btn'
-                                onClick={() =>
-                                    fetchProjects(
-                                        pagination.currentPage + 1,
-                                        searchValue
-                                    )
-                                }>
-                                {pagination.currentPage + 1}
-                            </button>
-                        )}
-                        {pagination.currentPage < pagination.totalPages - 2 && (
-                            <button className='join-item btn btn-disabled'>
-                                ...
-                            </button>
-                        )}
-                        {pagination.currentPage !== pagination.totalPages && (
-                            <button
-                                className={`join-item btn ${
-                                    pagination.currentPage ===
-                                    pagination.totalPages
-                                        ? 'btn-disabled'
-                                        : ''
-                                }`}
-                                onClick={() =>
-                                    fetchProjects(
-                                        pagination.totalPages,
-                                        searchValue
-                                    )
-                                }>
-                                {pagination.totalPages}
-                            </button>
-                        )}
+
+            <div className='mt-5'>
+                {!loading && currentPage < totalPages && (
+                    <div
+                        onClick={handleLoadMore}
+                        className='text-center hover:text-blue cursor-pointer'>
+                        Load More
                     </div>
+                )}
+                {loading && !isInit && (
+                    <div className='grid grid-cols-3 gap-5 mt-8 max-md:grid-cols-2 max-sm:grid-cols-1'>
+                        <CardProjectSkeleton />
+                        <CardProjectSkeleton />
+                        <CardProjectSkeleton />
+                        <CardProjectSkeleton />
+                        <CardProjectSkeleton />
+                        <CardProjectSkeleton />
+                    </div>
+                )}
+                {loading && isInit && (
+                <div className='grid grid-cols-3 gap-5 mt-8 max-md:grid-cols-2 max-sm:grid-cols-1'>
+                    <CardProjectSkeleton />
+                    <CardProjectSkeleton />
+                    <CardProjectSkeleton />
+                    <CardProjectSkeleton />
+                    <CardProjectSkeleton />
+                    <CardProjectSkeleton />
                 </div>
             )}
-
+            </div>
+            
             <br />
             <br />
             <br />
