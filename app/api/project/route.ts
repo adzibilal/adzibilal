@@ -1,30 +1,49 @@
 import { db } from '@/utils/db'
-import { NextResponse} from 'next/server'
+import { NextResponse } from 'next/server'
 
 export async function GET(req: Request) {
     try {
-        const {searchParams} = new URL(req.url);
-        // Mendapatkan parameter paginasi dari query string
-        const page = Number(searchParams.get("page")) || 1 // Halaman default: 1
-        const pageSize = Number(searchParams.get("pageSize")) || 10 // Ukuran halaman default: 10
+        const { searchParams } = new URL(req.url)
 
-        // Memastikan bahwa page dan pageSize adalah angka yang valid
+        const page = Number(searchParams.get('page')) || 1
+        const pageSize = Number(searchParams.get('pageSize')) || 10
+        const searchTerm = searchParams.get('searchTerm') || '' // Menambahkan parameter pencarian
+        const sortDirection = searchParams.get('sortDirection') || 'desc' // Menambahkan parameter arah pengurutan
+
         if (isNaN(page) || isNaN(pageSize) || page < 1 || pageSize < 1) {
             return NextResponse.json({ error: 'Invalid pagination parameters' })
         }
 
-        // Menghitung indeks awal dan akhir untuk paginasi
-        const startIndex = (page - 1) * pageSize
-        const endIndex = page * pageSize
-
-        // Mendapatkan data proyek sesuai dengan paginasi
-        const projects = await db.project.findMany({
-            skip: startIndex,
+        // Membuat objek untuk pengaturan paginasi dan pencarian
+        const paginationOptions = {
+            skip: (page - 1) * pageSize,
             take: pageSize
-        })
+        }
 
+        const searchOptions = {
+            where: {
+                // Menambahkan kondisi pencarian
+                OR: [
+                    { title: { contains: searchTerm, mode: 'insensitive' } }
+                    // Tambahkan kondisi pencarian tambahan di sini
+                ]
+            },
+            orderBy: {
+                // Menambahkan pengurutan berdasarkan createdAt
+                createdAt: sortDirection
+            }
+        }
+
+        // Menggabungkan opsi paginasi dan pencarian
+        const combinedOptions = { ...paginationOptions, ...searchOptions }
+
+        // Mendapatkan data proyek sesuai dengan paginasi dan pencarian
+        //@ts-ignore
+        const projects = await db.project.findMany(combinedOptions)
+        
         // Menghitung jumlah total proyek (untuk keperluan informasi paginasi)
-        const totalProjects = await db.project.count()
+        //@ts-ignore
+        const totalProjects = await db.project.count(searchOptions)
 
         // Mengembalikan hasil dengan informasi paginasi
         return NextResponse.json({

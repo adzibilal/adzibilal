@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react'
 import { CgAdd } from 'react-icons/cg'
 import AddProject from './_components/add'
 import CardProjectSkeleton from './_components/skeletons/CardProjectSkeleton'
+import { AiOutlineException, AiOutlineSearch } from 'react-icons/ai'
 
 const ProjectPage = () => {
     const [isAdd, setIsAdd] = useState(false)
@@ -16,12 +17,18 @@ const ProjectPage = () => {
     const [pageSize, setPageSize] = useState(10)
     const [totalPages, setTotalPages] = useState(1) // New state to track total pages
     const [loading, setLoading] = useState(false) // New state to track loading status
+    const [searchTerm, setSearchTerm] = useState('') // State untuk menyimpan nilai pencarian
+    const [sortDirection, setSortDirection] = useState('desc') // State untuk menyimpan arah pengurutan
 
     const getProject = async () => {
         try {
             setLoading(true)
+            // Reset project state jika currentPage adalah 1, artinya ini adalah pencarian baru
+            if (currentPage === 1) {
+                setProject([])
+            }
             const res = await axios.get(
-                `/api/project?page=${currentPage}&pageSize=${pageSize}`
+                `/api/project?page=${currentPage}&pageSize=${pageSize}&searchTerm=${searchTerm}&sortDirection=${sortDirection}`
             )
             setProject(prevProject => [...prevProject, ...res.data.projects])
             setTotalPages(Math.ceil(res.data.pageInfo.totalProjects / pageSize))
@@ -41,6 +48,11 @@ const ProjectPage = () => {
     useEffect(() => {
         getProject()
     }, [currentPage, pageSize])
+
+    useEffect(() => {
+        setCurrentPage(1)
+        getProject()
+    }, [sortDirection])
     return (
         <div>
             <div className='flex items-center justify-between'>
@@ -48,14 +60,58 @@ const ProjectPage = () => {
                     My Projects
                 </div>
 
-                <div
-                    onClick={() => setIsAdd(true)}
-                    className='bg-gradient-to-t from-purple to-blue text-white font-semibold text-center px-3 py-2 cursor-pointer hover:opacity-90 flex items-center gap-2'>
-                    <CgAdd />
-                    Add Project
+                <div className='flex items-center gap-3'>
+                    <div className='flex items-center justify-between gap-3'>
+                        <select
+                            value={sortDirection}
+                            onChange={e => setSortDirection(e.target.value)}
+                            className='px-3 py-2 border bg-zinc-50 border-zinc-100'>
+                            <option value='asc'>Terlama</option>
+                            <option value='desc'>Terbaru</option>
+                        </select>
+                        <input
+                            type='text'
+                            placeholder='Search projects...'
+                            value={searchTerm}
+                            onChange={e => setSearchTerm(e.target.value)}
+                            onKeyDown={e => {
+                                if (e.key === 'Enter') {
+                                    // Tombol "Enter" ditekan, panggil fungsi pencarian di sini
+                                    setCurrentPage(1) // Reset currentPage
+                                    getProject()
+                                }
+                            }}
+                            className='px-3 py-2 border bg-zinc-50 border-zinc-100 focus:outline-none'
+                        />
+
+                        <button
+                            onClick={() => {
+                                setCurrentPage(1)
+                                getProject()
+                            }}
+                            className='text-2xl bg-gradient-to-t from-purple to-blue text-white font-semibold text-center px-3 py-2 cursor-pointer hover:opacity-90 flex items-center gap-2'>
+                            <AiOutlineSearch />
+                        </button>
+                    </div>
+                    <div
+                        onClick={() => setIsAdd(true)}
+                        className='bg-gradient-to-t from-purple to-blue text-white font-semibold text-center px-3 py-2 cursor-pointer hover:opacity-90 flex items-center gap-2'>
+                        <CgAdd />
+                        Add Project
+                    </div>
                 </div>
             </div>
             {isAdd && <AddProject onClose={() => setIsAdd(false)} />}
+            {project.length === 0 && !loading && (
+                <div className='flex items-center justify-center flex-col h-[50vh]'>
+                    <div className='text-zinc-500 text-6xl'>
+                        <AiOutlineException />
+                    </div>
+                    <div className='text-center mt-5 text-zinc-500'>
+                        Project yang Anda cari tidak ditemukan.
+                    </div>
+                </div>
+            )}
             <div className='grid grid-cols-3 xl:grid-cols-5 mt-10 gap-3'>
                 {project &&
                     project.map(item => (
