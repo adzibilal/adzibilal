@@ -1,23 +1,21 @@
 'use client'
-import { IProject } from '@/models/Project'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { Project } from '@prisma/client'
 export default function LandingProjects() {
-    const [projects, setProjects] = useState<IProject[]>([])
+    const [projects, setProjects] = useState<Project[]>([])
     const [loading, setLoading] = useState(true) // Menambahkan state untuk loading
 
     useEffect(() => {
         // Fungsi untuk mengambil data proyek dari API
         const fetchProjects = async () => {
             try {
-                const response = await fetch(
-                    '/api/projects?endpoint=projects-lp'
-                ) // Ganti URL sesuai dengan rute API Anda
+                const response = await fetch('/api/project/landing') // Ganti URL sesuai dengan rute API Anda
                 if (response.ok) {
                     const data = await response.json()
-                    setProjects(data)
+                    setProjects(data.projects)
                 } else {
                     console.error('Failed to fetch projects')
                 }
@@ -58,12 +56,12 @@ export default function LandingProjects() {
                     {projects.map(project => (
                         <motion.div
                             className='item-project'
-                            key={project._id}
+                            key={project.id}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1 }}>
                             <Image
-                                src={project.image[0]}
+                                src={project.images[0]}
                                 alt=''
                                 width={400}
                                 height={300}
@@ -71,16 +69,16 @@ export default function LandingProjects() {
                             />
                             <div className='desc mb-3'>
                                 <div className='tech'>
-                                    {project.teknologi.map((tech, index) => (
+                                    {project.tech.map((tech, index) => (
                                         <div className='item-tech' key={index}>
                                             {tech}
                                         </div>
                                     ))}
                                 </div>
-                                <div className='title'>{project.judul}</div>
-                                <div className='sub'>{project.deskripsi}</div>
+                                <div className='title line-clamp-1'>{project.title}</div>
+                                <div className='sub line-clamp-2'>{project.description}</div>
                                 <Link
-                                    href={`/projects/${project._id}`}
+                                    href={`/projects/${project.id}`}
                                     className='button-gradient'>
                                     Learn More
                                 </Link>
