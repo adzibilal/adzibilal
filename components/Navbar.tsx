@@ -17,8 +17,8 @@ export default function Navbar() {
         <nav className={`navbar ${isMenuOpen ? 'menu-open' : ''}`}>
             <div className='max-container flex justify-between items-center w-full'>
                 <Image
-                    className='relative dark:invert'
-                    src='/images/logo-black.png'
+                    className='relative dark:invert h-8 w-auto'
+                    src='/logo-adzi.png'
                     alt='Adzi Logo'
                     width={100}
                     height={20}
