@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 
 export default function Hero() {
     return (
-        <section className='max-container grid grid-cols-[1.5fr_1fr] gap-2 items-center max-sm:flex max-sm:flex-col-reverse max-sm:p-5'>
+        <section className='max-container grid grid-cols-[1.5fr_1fr] gap-2 items-center max-md:flex max-md:flex-col-reverse max-md:p-5 sm:h-[80vh]'>
             <div className=''>
                 <motion.h1
                     className='hero-title sm:!text-left'
@@ -49,8 +49,8 @@ export default function Hero() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1 }}>
                 <Image
-                    className='rounded-full'
-                    src='/images/img-adzi.png'
+                    className=''
+                    src='/images/ava-hero.png'
                     alt='Adzi Logo'
                     width={1000}
                     height={1000}
