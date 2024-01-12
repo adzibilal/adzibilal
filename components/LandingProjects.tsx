@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Project } from '@prisma/client'
+import CardProjectSkeleton from '@/app/(landing)/projects/_components/CardProjectSkeleton'
 export default function LandingProjects() {
     const [projects, setProjects] = useState<Project[]>([])
     const [loading, setLoading] = useState(true) // Menambahkan state untuk loading
@@ -48,8 +49,13 @@ export default function LandingProjects() {
                 </p>
             </motion.div>
             {loading ? ( // Tampilkan "Loading" jika loading adalah true
-                <div className='w-full py-10 flex items-center justify-center'>
-                    <span className='loading loading-ring loading-lg'></span>
+                <div className='grid grid-cols-3 gap-5 mt-8 max-md:grid-cols-2 max-sm:grid-cols-1'>
+                    <CardProjectSkeleton />
+                    <CardProjectSkeleton />
+                    <CardProjectSkeleton />
+                    <CardProjectSkeleton />
+                    <CardProjectSkeleton />
+                    <CardProjectSkeleton />
                 </div>
             ) : (
                 <div className='grid grid-cols-3 gap-5 mt-8 max-md:grid-cols-2 max-sm:grid-cols-1'>
@@ -75,8 +81,12 @@ export default function LandingProjects() {
                                         </div>
                                     ))}
                                 </div>
-                                <div className='title line-clamp-1'>{project.title}</div>
-                                <div className='sub line-clamp-2'>{project.description}</div>
+                                <div className='title line-clamp-1'>
+                                    {project.title}
+                                </div>
+                                <div className='sub line-clamp-2'>
+                                    {project.description}
+                                </div>
                                 <Link
                                     href={`/projects/${project.id}`}
                                     className='button-gradient'>
