@@ -9,8 +9,13 @@ I am a passionate web developer who enjoys crafting digital experiences that are
 ---
 
 ### 🔥 &nbsp; My Stats :
+<a href="https://github.com/adzibilal">
+  <img height="180em" src="https://github-readme-stats-eight-theta.vercel.app/api?username=adzibilal&show_icons=true&theme=nightowl&include_all_commits=true&count_private=true"/>
+  <img height="180em" src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=adzibilal&layout=compact&langs_count=8&theme=radical"/>
+</a>
+
 [![GitHub Streak](http://github-readme-streak-stats.herokuapp.com?user=adzibilal&theme=dark&background=000000)](https://git.io/streak-stats)
 
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=adzibilal&layout=compact&theme=vision-friendly-dark)](https://github.com/anuraghazra/github-readme-stats)
-
 ---
+
+![](https://komarev.com/ghpvc/?username=adzibilal)
