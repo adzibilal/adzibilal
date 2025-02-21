@@ -14,7 +14,7 @@ I am a passionate web developer who enjoys crafting digital experiences that are
   <img height="180em" src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=adzibilal&layout=compact&langs_count=8&theme=radical"/>
 </a>
 
-[![GitHub Streak](https://nirzak-streak-stats.vercel.app/?user=adzibilal)]
+![GitHub Streak](https://nirzak-streak-stats.vercel.app/?user=adzibilal)
 
 ---
 
